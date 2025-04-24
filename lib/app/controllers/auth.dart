@@ -20,21 +20,23 @@ class authController extends GetxController {
   authController(this.userService);
   final formKey = GlobalKey<FormState>();
   Future<void> signUpUser() async {
-    String? deviceToken =
-        await NotificationUtil().getToken(); // Generate FCM token
+    // Generate FCM token
 
     isLoading.value = true;
     try {
+      String deviceToken = await NotificationUtil().getToken();
+      log("Device token is $deviceToken");
       Map<String, dynamic> data = {
         "name": nameController.text,
         "email": emailController.text,
         "password": passwordController.text,
         "deviceToken": deviceToken,
       };
+      log("Data map is $data");
       var response = await userService.createUser(data);
       if (response.success) {
         Get.toNamed(Routes.login);
-        CustomToast.success(response.message);
+        CustomToast.success("Successfully created user");
       } else {
         CustomToast.error(response.message);
       }

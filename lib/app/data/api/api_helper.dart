@@ -27,7 +27,7 @@ class ApiHelper {
 
     var header = getHeaders();
     final response = await http.get(url, headers: headers);
-    // log("Response (${response.statusCode}): ${response.body}");
+    log("Response for $endpoint (${response.statusCode}): ${response.body}");
     return _handleResponse(response);
   }
 
@@ -39,6 +39,8 @@ class ApiHelper {
 
     final response =
         await http.post(url, headers: headers, body: jsonEncode(body));
+    // log("Response body is ${response.body}");
+
     return _handleResponse(response);
   }
 

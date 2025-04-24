@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:omega/app/views/profile/updatee.dart';
 
@@ -10,11 +12,7 @@ import '../../widgets/container/custom_app_bar.dart';
 import '../../widgets/container/custom_container.dart';
 import '../../widgets/container/custom_supplement_container.dart';
 import '../../widgets/text/text_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../HelpScreen/HelpScreen.dart';
-import 'friends.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({super.key});
@@ -120,14 +118,14 @@ class ProfileScreen extends GetView<ProfileController> {
                         //     assetName: AppAssets.progress,
                         //   ),
                         // ),
-                        InkWell(
-                          onTap: () => Get.to(ShareDiaryScreen()),
-                          child: buildRowIcon(
-                            title: "Friends",
-                            textColor: AppColors.textColor,
-                            assetName: AppAssets.invite,
-                          ),
-                        ),
+                        // InkWell(
+                        //   onTap: () => Get.to(ShareDiaryScreen()),
+                        //   child: buildRowIcon(
+                        //     title: "Friends",
+                        //     textColor: AppColors.textColor,
+                        //     assetName: AppAssets.invite,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

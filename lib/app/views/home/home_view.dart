@@ -1,18 +1,14 @@
-import 'package:omega/app/services/suplement.dart';
-
-import '../../controllers/profile_ctrl.dart';
-import '../../utils/constants/assets.dart';
-import '../../utils/constants/color.dart';
-import '../../utils/helpers/app_size.dart';
-import '../../widgets/chart/monthly_bar_chart.dart';
-import '../../widgets/container/custom_app_bar.dart';
-import '../../widgets/container/custom_container.dart';
-import '../../widgets/container/custom_supplement_container.dart';
-import '../../widgets/image/custom_svg.dart';
-import '../../widgets/text/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:omega/app/services/suplement.dart';
+
 import '../../controllers/home_controller.dart';
+import '../../controllers/profile_ctrl.dart';
+import '../../utils/constants/assets.dart';
+import '../../utils/helpers/app_size.dart';
+import '../../widgets/chart/monthly_bar_chart.dart';
+import '../../widgets/container/custom_supplement_container.dart';
+import '../../widgets/text/text_widget.dart';
 
 class HomeView extends StatelessWidget {
   final HomeController controller =
@@ -29,7 +25,7 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildGreeting(),
-            MonthlyBarChart(),
+            WeeklyBarChart(),
             Text(
               "Today",
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
@@ -98,7 +94,7 @@ class HomeView extends StatelessWidget {
           ),
           Spacer(),
           SizedBox(width: AppSize.h2),
-          CustomSvgIcon(assetName: AppAssets.notification),
+          // CustomSvgIcon(assetName: AppAssets.notification),
         ],
       );
     });

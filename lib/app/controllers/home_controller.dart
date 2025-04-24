@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:omega/app/services/suplement.dart';
 import 'package:omega/app/utils/helpers/toast.dart';
 
+import '../data/models/daily_suppliment.dart';
 import '../data/models/supplement.dart';
 
 class HomeController extends GetxController {
@@ -16,8 +17,12 @@ class HomeController extends GetxController {
   }
 
   HomeController({required this.supplementServices});
+
   RxList<SupplementModel> supplements = <SupplementModel>[].obs;
   RxList<SupplementModel> allSuplements = <SupplementModel>[].obs;
+  final Rx<DailyDataSuppliment?> dailySupplements =
+      Rx<DailyDataSuppliment?>(null);
+
   @override
   void onInit() {
     super.onInit();
@@ -83,6 +88,7 @@ class HomeController extends GetxController {
         allSuplements.value = response.data!;
       } else {
         CustomToast.error("Failed to fetch supplements: ${response.message}");
+        log("Failed error ${response.message}");
       }
     } catch (e) {
       log("Error fetching supplements: $e");
@@ -98,6 +104,7 @@ class HomeController extends GetxController {
         supplements.value = response.data!;
       } else {
         CustomToast.error("Failed to fetch supplements: ${response.message}");
+        log("Failed error ${response.message}");
       }
     } catch (e) {
       log("Error fetching supplements: $e");
@@ -110,9 +117,10 @@ class HomeController extends GetxController {
       final response = await supplementServices.weeklySummry();
 
       if (response.success && response.data != null) {
-        supplements.value = response.data!;
+        dailySupplements.value = response.data!;
       } else {
         CustomToast.error("Failed to fetch supplements: ${response.message}");
+        log("Failed error ${response.message} ${response.data} ${response.success}");
       }
     } catch (e) {
       log("Error fetching supplements: $e");

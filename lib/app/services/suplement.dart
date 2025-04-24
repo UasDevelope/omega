@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:omega/app/data/api/api_helper.dart';
 import 'package:omega/app/data/api/end_points.dart';
 import 'package:omega/app/data/models/supplement.dart';
+
+import '../data/models/daily_suppliment.dart';
 
 class SupplementServices {
   Future<dynamic> addSupplement(Map<String, dynamic> userData) async {
@@ -35,30 +39,30 @@ class SupplementServices {
       );
     }
   }
-  Future<ApiResponse<List<SupplementModel>>> weeklySummry() async {
+
+  Future<ApiResponse<DailyDataSuppliment>> weeklySummry() async {
     final ApiResponse rawResponse = await ApiHelper.get(ApiEndPoints.weekly);
+    log("Raw response is $rawResponse");
 
     if (rawResponse.success && rawResponse.data != null) {
       // ✅ First, cast the whole response to Map<String, dynamic>
       final Map<String, dynamic> jsonData =
-      rawResponse.data as Map<String, dynamic>;
+          rawResponse.data as Map<String, dynamic>;
 
-      // ✅ Then extract just the List part
-      final List<dynamic> dataList = jsonData['data'];
-
-      final List<SupplementModel> supplements =
-      dataList.map((item) => SupplementModel.fromJson(item)).toList();
+      // ✅ Parse the entire DailyDataSuppliment model
+      final DailyDataSuppliment supplementSummary =
+          DailyDataSuppliment.fromJson(jsonData);
 
       return ApiResponse(
         success: true,
-        message: jsonData['message'], // might be null, that’s okay
-        data: supplements,
+        message: rawResponse.message,
+        data: supplementSummary,
       );
     } else {
       return ApiResponse(
         success: false,
         message: rawResponse.message,
-        data: [],
+        data: null,
       );
     }
   }

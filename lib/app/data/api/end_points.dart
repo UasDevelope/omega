@@ -5,5 +5,5 @@ class ApiEndPoints {
   static String updateStatus(String id) => "/supplements/$id/status";
   static get today => "/supplements/supplements-today";
   static get profile => "/auth/profile";
-  static get weekly => "/supplements/progress/weekly";
+  static get weekly => "/supplements/progress/daily";
 }
