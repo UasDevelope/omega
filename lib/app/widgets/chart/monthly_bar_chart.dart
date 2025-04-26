@@ -103,6 +103,7 @@ class WeeklyBarChart extends StatelessWidget {
   }
 
   List<BarChartGroupData> _getBarGroups(List<DailyEntry> data) {
+    //
     return data.asMap().entries.map((entry) {
       log("Key is ${entry.key} ${entry.value.total.toDouble()}");
       return BarChartGroupData(
