@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class LocalStorage {
   static const _storage = FlutterSecureStorage();
   static const String tokenKey = "auth_token";
+  static const String fmcToken = "fmc_token";
   static const currentVideo = "current_video";
   // ✅ Save a String
   static Future<void> saveString(String key, String value) async {

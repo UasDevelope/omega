@@ -1,4 +1,4 @@
-package com.example.omega
+package com.apexbiotics.app
 
 import io.flutter.embedding.android.FlutterActivity
 

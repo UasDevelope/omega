@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +6,7 @@ import '../../data/source/font_source.dart';
 import '../../utils/constants/assets.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/helpers/app_size.dart';
+import '../../utils/helpers/notification_service.dart';
 import '../../widgets/text/rich_text_widget.dart';
 import '../../widgets/text/text_widget.dart';
 
@@ -16,6 +16,8 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(SplashController());
+    NotificationUtil().allTasks(context);
+
     return Scaffold(
       body: Stack(
         children: [

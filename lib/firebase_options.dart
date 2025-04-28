@@ -58,14 +58,12 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAkYIVbEOR9bu_ScqDXrwxq816WL3oHrZQ',
-    appId: '1:452022753540:ios:7ada58a568303af4d8d851',
-    messagingSenderId: '452022753540',
-    projectId: 'civitante',
-    storageBucket: 'civitante.firebasestorage.app',
-    androidClientId: '452022753540-4fplhmji9fhpv79rf79s1tjpihq1hrp4.apps.googleusercontent.com',
-    iosClientId: '452022753540-94pl52pkn8avf8oai9hidlihkbp1dhdc.apps.googleusercontent.com',
-    iosBundleId: 'com.example.omega',
+    apiKey: 'AIzaSyCURwkqPewuGifvKssAU_6TKbfCttSqVMw',
+    appId: '1:125670181929:ios:000cba3ad4b2817d45a038',
+    messagingSenderId: '125670181929',
+    projectId: 'apex-biotics---pill-reminder',
+    storageBucket: 'apex-biotics---pill-reminder.firebasestorage.app',
+    iosBundleId: 'com.apexbiotics.app',
   );
 
 }

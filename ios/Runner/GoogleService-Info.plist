@@ -2,24 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>452022753540-94pl52pkn8avf8oai9hidlihkbp1dhdc.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.452022753540-94pl52pkn8avf8oai9hidlihkbp1dhdc</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>452022753540-4fplhmji9fhpv79rf79s1tjpihq1hrp4.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAkYIVbEOR9bu_ScqDXrwxq816WL3oHrZQ</string>
+	<string>AIzaSyCURwkqPewuGifvKssAU_6TKbfCttSqVMw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>452022753540</string>
+	<string>125670181929</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.omega</string>
+	<string>com.apexbiotics.app</string>
 	<key>PROJECT_ID</key>
-	<string>civitante</string>
+	<string>apex-biotics---pill-reminder</string>
 	<key>STORAGE_BUCKET</key>
-	<string>civitante.firebasestorage.app</string>
+	<string>apex-biotics---pill-reminder.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:452022753540:ios:7ada58a568303af4d8d851</string>
+	<string>1:125670181929:ios:fc5d235661ec934745a038</string>
 </dict>
 </plist>

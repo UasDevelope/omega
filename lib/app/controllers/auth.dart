@@ -1,9 +1,8 @@
 import 'dart:developer';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:omega/app/utils/helpers/notification_service.dart';
 
 import '../data/source/local.dart';
 import '../routes/app_routes.dart';
@@ -21,7 +20,8 @@ class authController extends GetxController {
   authController(this.userService);
   final formKey = GlobalKey<FormState>();
   Future<void> signUpUser() async {
-    String? deviceToken = await _getFcmToken(); // Generate FCM token
+    String? deviceToken =
+        await NotificationUtil().getToken(); // Generate FCM token
 
     isLoading.value = true;
     try {
@@ -46,25 +46,21 @@ class authController extends GetxController {
     }
   }
 
-  Future<String?> _getFcmToken() async {
-    try {
-      // Get the FCM token
-      String? token = await FirebaseMessaging.instance.getToken();
-      if (token != null) {
-        log("FCM Token: $token");
-      } else {
-        log("FCM Token is null");
-      }
-      return token;
-    } catch (e) {
-      log("Error fetching FCM token: $e");
-      return null;
-    }
-  }
-
   Future<void> login() async {
-    String? deviceToken = await _getFcmToken(); // Generate FCM token
+    String? deviceToken =
+        await NotificationUtil().getToken(); // Generate FCM token
+    // RemoteMessage fakeMessage = RemoteMessage(
+    //   notification: RemoteNotification(
+    //     title: "Test Notification",
+    //     body: "This is a locally triggered notification!",
+    //   ),
+    //   data: {
+    //     "notificationType":
+    //         "simple", // or "message" if you want to test that part
+    //   },
+    // );
 
+    // NotificationUtil().showNotification(fakeMessage);
     if (formKey.currentState!.validate()) {
       Map<String, dynamic> loginData = {
         "email": emailController.text,
