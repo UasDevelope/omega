@@ -7,4 +7,5 @@ class Routes {
   static get addSupplements => "/addSupplements";
   static get login => "/login";
   static get signup => "/signup";
+  static get otp => "/otp";
 }
