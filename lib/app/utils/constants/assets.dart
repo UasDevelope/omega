@@ -1,15 +1,17 @@
-
 import 'package:omega/app/utils/helpers/extension.dart';
 
 class AppAssets {
   // Logos (PNG)
   static get logo => "logo".png;
   static get profile => "profile".png;
+  static get noProfile => "noProfile".png;
   static get calender => "calender".png;
   static get calender1 => "calender".svg;
   static get notification => "notification".svg;
   static get dashboard => "dashboard".png;
   static get coverImage => "coverImage".png;
+  static get reduceStress => "reduceStress".png;
+  static get sleep => "sleep".png;
   static get xLogo => "xLogo".png;
   static get guide => "guide".png;
   static get setting => "setting".png;
