@@ -1,5 +1,5 @@
-
 import 'package:get/get.dart';
+import 'package:omega/app/views/auth/otp.dart';
 
 import '../../app_binding.dart';
 import '../bindings/home_binding.dart';
@@ -47,6 +47,11 @@ class AppPages {
       binding: AppBinding(),
     ),
     GetPage(
+      name: Routes.otp,
+      page: () => OtpScreen(),
+      binding: AppBinding(),
+    ),
+    GetPage(
       name: Routes.splashScreen,
       page: () => SplashScreen(),
       binding: AppBinding(),
@@ -56,6 +61,5 @@ class AppPages {
       page: () => GuideDetail(guide: Get.arguments as Guide),
       binding: AppBinding(),
     ),
-
   ];
 }
