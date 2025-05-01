@@ -11,6 +11,7 @@ import '../utils/helpers/toast.dart';
 
 class authController extends GetxController {
   final emailController = TextEditingController();
+  final otpController = TextEditingController();
   final passwordController = TextEditingController();
   final confrimPasswordController = TextEditingController();
 
@@ -35,7 +36,7 @@ class authController extends GetxController {
       log("Data map is $data");
       var response = await userService.createUser(data);
       if (response.success) {
-        Get.toNamed(Routes.login);
+        Get.toNamed(Routes.otp);
         CustomToast.success("Successfully created user");
       } else {
         CustomToast.error(response.message);
@@ -77,7 +78,9 @@ class authController extends GetxController {
           LocalStorage.saveString(
               LocalStorage.tokenKey, response.data["data"]["token"]);
           CustomToast.success("Login successfully");
-          Get.toNamed(Routes.BOTTOMNAV); // or Routes.BOTTOMNAV
+          Get.offAllNamed(Routes.BOTTOMNAV); // or Routes.BOTTOMNAV
+        } else {
+          Get.toNamed(Routes.otp);
         }
       } catch (e) {
         log(e.toString());
@@ -86,6 +89,24 @@ class authController extends GetxController {
         isLoading.value = false;
       }
       // TODO: Add your API or login logic here
+    }
+  }
+
+  Future<void> verifyOtp() async {
+    try {
+      isLoading.value = true;
+      var response = await userService.verifyOtp(otpController.text);
+      if (response.success) {
+        CustomToast.success("Successfully Verified");
+        Get.offNamed(Routes.login);
+      } else {
+        CustomToast.error("Invalid otp");
+      }
+    } catch (e) {
+      log(e.toString());
+      CustomToast.error("$e");
+    } finally {
+      isLoading.value = false;
     }
   }
 
