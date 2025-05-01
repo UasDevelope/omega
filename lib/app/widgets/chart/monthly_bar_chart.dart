@@ -4,12 +4,15 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omega/app/controllers/home_controller.dart';
+import 'package:omega/app/views/progress/progress_view.dart';
 
 import '../../data/models/daily_suppliment.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/helpers/app_size.dart';
 
 class WeeklyBarChart extends StatelessWidget {
+  final bool isProgress;
+  WeeklyBarChart({super.key, this.isProgress = false});
   final HomeController controller =
       Get.find(); // assuming controller is registered
 
@@ -37,7 +40,7 @@ class WeeklyBarChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Weekly Adherence",
+              "Weekly Supplements",
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
             ),
             const SizedBox(height: 16),
@@ -45,15 +48,27 @@ class WeeklyBarChart extends StatelessWidget {
               child: BarChart(
                 BarChartData(
                   alignment: BarChartAlignment.spaceAround,
-                  maxY: 100, // adherenceRate is in percentage
-                  barTouchData: BarTouchData(enabled: true),
+                  maxY: _getMaxY(weeklyData), // adherenceRate is in percentage
+                  barTouchData: BarTouchData(
+                    enabled: true,
+                    touchCallback: (event, response) {
+                      if (event is FlTapUpEvent &&
+                          response != null &&
+                          response.spot != null) {
+                        if (!isProgress) {
+                          Get.to(ProgressView());
+                          log('progress clicked');
+                        }
+                      }
+                    },
+                  ),
                   titlesData: FlTitlesData(
                     leftTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
-                        interval: 20,
+                        interval: _getInterval(weeklyData),
                         getTitlesWidget: (value, _) => Text(
-                          '${value.toInt()}%',
+                          '${value.toInt()}',
                           style: const TextStyle(
                             fontSize: 10,
                             color: Colors.black54,
@@ -71,12 +86,22 @@ class WeeklyBarChart extends StatelessWidget {
                         showTitles: true,
                         getTitlesWidget: (double value, _) {
                           if (value.toInt() < weeklyData.length) {
-                            return Text(
-                              weeklyData[value.toInt()].day.substring(0, 3),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                              ),
+                            final item = weeklyData[value.toInt()];
+                            final date = DateTime.parse(item.date);
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  item.day.substring(0, 3), // e.g., Mon
+                                  style: const TextStyle(
+                                      fontSize: 10, color: Colors.black),
+                                ),
+                                Text(
+                                  '${date.day}', // Show the day number
+                                  style: const TextStyle(
+                                      fontSize: 8.7, color: Colors.grey),
+                                ),
+                              ],
                             );
                           }
                           return const Text('');
@@ -110,7 +135,7 @@ class WeeklyBarChart extends StatelessWidget {
         x: entry.key,
         barRods: [
           BarChartRodData(
-            toY: entry.value.adherenceRate.toDouble(),
+            toY: entry.value.total.toDouble(),
             color: AppColors.appColor,
             width: 12,
             borderRadius: BorderRadius.circular(4),
@@ -118,5 +143,22 @@ class WeeklyBarChart extends StatelessWidget {
         ],
       );
     }).toList();
+  }
+
+  double _getMaxY(List<DailyEntry> data) {
+    if (data.isEmpty) return 1;
+
+    final maxTotal = data.map((e) => e.total).reduce((a, b) => a > b ? a : b);
+
+    // Add some padding (e.g. 20% higher for better scaling)
+    return (maxTotal * 1.2).ceilToDouble();
+  }
+
+  double _getInterval(List<DailyEntry> data) {
+    final max = _getMaxY(data);
+    if (max <= 2) return 1;
+    if (max <= 5) return 1;
+    if (max <= 10) return 2;
+    return (max / 5).ceilToDouble(); // for bigger numbers
   }
 }

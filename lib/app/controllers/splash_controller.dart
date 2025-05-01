@@ -1,8 +1,9 @@
 import 'dart:developer';
+
 import 'package:get/get.dart';
+
 import '../data/source/local.dart';
 import '../routes/app_routes.dart';
-import '../utils/helpers/native_helper.dart';
 
 class SplashController extends GetxController {
   RxString appVersion = 'Version ...'.obs;
@@ -10,7 +11,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchVersion();
+    // fetchVersion();
     Future.delayed(Duration(seconds: 5), () async {
       var token = await LocalStorage.getString(LocalStorage.tokenKey);
       log("Token: $token");
@@ -23,8 +24,8 @@ class SplashController extends GetxController {
     });
   }
 
-  void fetchVersion() async {
-    String version = await NativeHelper.getAppVersion();
-    appVersion.value = "Version $version";
-  }
+  // void fetchVersion() async {
+  //   String version = await NativeHelper.getAppVersion();
+  //   appVersion.value = "Version $version";
+  // }
 }

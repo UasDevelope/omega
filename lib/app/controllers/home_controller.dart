@@ -36,25 +36,28 @@ class HomeController extends GetxController {
 
   void toggleCheckbox(bool? value, String supplementId) {
     if (checkedStatusMap.containsKey(supplementId)) {
-      checkedStatusMap[supplementId]!.value = value ?? false;
+      final newValue = value ?? false;
+      checkedStatusMap[supplementId]!.value = newValue;
+
+      final newStatus = newValue ? "taken" : "pending";
 
       // 🔄 Update status in supplements list
       final index1 = supplements.indexWhere((item) => item.id == supplementId);
       if (index1 != -1) {
-        supplements[index1].status = "taken";
-        supplements.refresh(); // Notify listeners
+        supplements[index1].status = newStatus;
+        supplements.refresh();
       }
 
       // 🔄 Update status in allSuplements list
       final index2 =
           allSuplements.indexWhere((item) => item.id == supplementId);
       if (index2 != -1) {
-        allSuplements[index2].status = "taken";
-        allSuplements.refresh(); // Notify listeners
+        allSuplements[index2].status = newStatus;
+        allSuplements.refresh();
       }
 
-      // ✅ Hit the API
-      updateStatus(supplementId);
+      // ✅ Hit the API with correct status
+      updateStatus(supplementId, newStatus);
     }
   }
 
@@ -67,15 +70,15 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> updateStatus(String id) async {
+  Future<void> updateStatus(String id, String status) async {
     try {
-      Map<String, dynamic> data = {"status": "taken"};
+      Map<String, dynamic> data = {"status": status};
       var response = await supplementServices.updateStatus(id, data);
       if (response.success) {
-        CustomToast.success("Status updated");
+        CustomToast.success("Status updated to $status");
       }
     } catch (e) {
-      CustomToast.error("Error$e");
+      CustomToast.error("Error $e");
       log(e.toString());
     }
   }

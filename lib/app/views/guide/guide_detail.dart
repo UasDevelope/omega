@@ -1,10 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 import '../../data/models/guides.dart';
-import '../../utils/constants/assets.dart';
 import '../../utils/constants/color.dart';
-import '../../utils/helpers/app_size.dart';
 import '../../widgets/container/custom_app_bar.dart';
 import '../../widgets/text/text_widget.dart';
 
@@ -28,14 +25,15 @@ class GuideDetail extends StatelessWidget {
           TextWidget(
             title: guide.description,
             fontSize: 17,
+            textAlign: TextAlign.start,
             fontWeight: FontWeight.w600,
             textColor: AppColors.appColor,
           ),
           SizedBox(height: 16),
           ...guide.points.map((item) => _buildGuideItem(
-            title: item['title'] ?? '',
-            description: item['description'] ?? '',
-          )),
+                title: item['title'] ?? '',
+                description: item['description'] ?? '',
+              )),
         ],
       ),
     );

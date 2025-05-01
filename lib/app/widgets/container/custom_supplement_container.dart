@@ -1,7 +1,7 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:omega/app/services/suplement.dart';
 import 'package:omega/app/views/supplements/add_supplements.dart';
 
@@ -11,11 +11,7 @@ import '../../data/source/format.dart';
 import '../../utils/constants/assets.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/helpers/app_size.dart';
-import '../../widgets/container/custom_app_bar.dart';
 import '../../widgets/text/text_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-
 import '../image/custom_svg.dart';
 import 'custom_container.dart';
 
@@ -26,63 +22,64 @@ class CustomSupplementContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController homeController =
         Get.put(HomeController(supplementServices: SupplementServices()));
-    return Obx(() => Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: AppColors.softWhite,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x26000000),
-                blurRadius: 6.1,
-                spreadRadius: 0,
-                offset: Offset(0, 0),
-              ),
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.softWhite,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x26000000),
+            blurRadius: 6.1,
+            spreadRadius: 0,
+            offset: Offset(0, 0),
+          ),
+        ],
+      ),
+      child: Column(
+        spacing: AppSize.h2,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              buildRowIcon(
+                  spacing: AppSize.h1,
+                  title: 'Supplements',
+                  textColor: AppColors.textColor,
+                  assetName: AppAssets.suppliments),
+              buildRowIcon(
+                  spacing: AppSize.h1,
+                  onTap: () {
+                    Get.to(AddSupplements());
+                  },
+                  title: 'Add',
+                  textColor: AppColors.appColor,
+                  assetName: AppAssets.add),
             ],
           ),
-          child: Column(
-            spacing: AppSize.h2,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildRowIcon(
-                      spacing: AppSize.h1,
-                      title: 'Supplements',
-                      textColor: AppColors.textColor,
-                      assetName: AppAssets.suppliments),
-                  buildRowIcon(
-                      spacing: AppSize.h1,
-                      onTap: () {
-                        Get.to(AddSupplements());
-                      },
-                      title: 'Add',
-                      textColor: AppColors.appColor,
-                      assetName: AppAssets.add),
-                ],
-              ),
-              homeController.supplements.isEmpty
-                  ? Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 40),
-                        child: Text(
-                          "No supplements available right now 🧃",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    )
-                  : Obx(() => ListView.separated(
-                itemCount: homeController.supplements.length,
+          Obx(() {
+            if (homeController.allSuplements.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  child: Text(
+                    "No supplements available right now",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            } else {
+              return ListView.separated(
+                itemCount: homeController.allSuplements.length,
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
                 itemBuilder: (context, index) {
-                  final supplement =
-                  homeController.supplements[index];
+                  final supplement = homeController.allSuplements[index];
                   log("AllSupplements$supplement");
                   return supplementContainer(
                     bgColor: AppColors.softWhite,
@@ -90,14 +87,15 @@ class CustomSupplementContainer extends StatelessWidget {
                     supplement: supplement,
                   );
                 },
-                separatorBuilder:
-                    (BuildContext context, int index) {
+                separatorBuilder: (BuildContext context, int index) {
                   return SizedBox(height: AppSize.h2);
                 },
-              ))
-            ],
-          ),
-        ));
+              );
+            }
+          })
+        ],
+      ),
+    );
   }
 }
 
@@ -167,10 +165,8 @@ Widget supplementContainer({
                 Checkbox(
                   value: controller.checkedStatusMap[supplement.id]?.value ??
                       false,
-                  onChanged: supplement.status == "pending"
-                      ? (bool? value) =>
-                          controller.toggleCheckbox(value, supplement.id)
-                      : null, // Disable if not pending
+                  onChanged: (bool? value) =>
+                      controller.toggleCheckbox(value, supplement.id),
                   activeColor: AppColors.appColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4),

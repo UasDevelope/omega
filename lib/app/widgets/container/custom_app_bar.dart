@@ -1,15 +1,11 @@
-import '../../utils/constants/assets.dart';
-import '../../utils/constants/color.dart';
-import '../../utils/helpers/app_size.dart';
-import '../../widgets/container/custom_app_bar.dart';
-import '../../widgets/text/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../utils/constants/assets.dart';
+import '../../utils/constants/color.dart';
 import '../../utils/helpers/app_size.dart';
-import '../dialogue/add_schedule.dart';
-import '../text/text_widget.dart';
+import '../../views/supplements/add_supplements.dart';
+import '../../widgets/text/text_widget.dart';
 import 'custom_supplement_container.dart';
 
 AppBar customAppBar({required String title, bool? action, bool? leading}) {
@@ -38,7 +34,8 @@ AppBar customAppBar({required String title, bool? action, bool? leading}) {
         ? [
             InkWell(
               onTap: () {
-                Get.dialog(AddScheduleDialogue(), barrierDismissible: false);
+                Get.to(AddSupplements());
+                // Get.dialog(AddScheduleDialogue(), barrierDismissible: false);
               },
               child: buildRowIcon(
                   spacing: AppSize.h1,

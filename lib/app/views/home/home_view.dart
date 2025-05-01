@@ -79,16 +79,17 @@ class HomeView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
+            backgroundColor: Color(0xEFEFEF),
             backgroundImage: user != null && user.profilePicture.isNotEmpty
                 ? NetworkImage(user.profilePicture)
-                : AssetImage(AppAssets.profile) as ImageProvider,
+                : AssetImage(AppAssets.noProfile) as ImageProvider,
             radius: 24,
           ),
           SizedBox(width: AppSize.h2),
           TextWidget(
             title: user != null && user.name.isNotEmpty
-                ? "Hallo, ${user.name}!"
-                : "Hallo, Max!",
+                ? "Hello, ${user.name}!"
+                : "Hello, Max!",
             fontSize: 22,
             fontWeight: FontWeight.w600,
           ),

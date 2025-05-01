@@ -32,42 +32,45 @@ class SupplementsView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // TextWidget(title: "Monday"),
-                  homeController.allSuplements.isEmpty
-                      ? Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 200),
-                            child: Center(
-                              child: Text(
-                                "No supplements found at the moment 🧃",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey[600],
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.center,
+                  Obx(() {
+                    if (homeController.allSuplements.isEmpty) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 200),
+                          child: Center(
+                            child: Text(
+                              "No supplements found at the moment",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.w500,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                        )
-                      : Obx(() => ListView.separated(
-                            itemCount: homeController.allSuplements.length,
-                            shrinkWrap: true,
-                            physics: ScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final supplement =
-                                  homeController.allSuplements[index];
-                              log("AllSupplements$supplement");
-                              return supplementContainer(
-                                bgColor: AppColors.softWhite,
-                                controller: homeController,
-                                supplement: supplement,
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return SizedBox(height: AppSize.h2);
-                            },
-                          ))
+                        ),
+                      );
+                    } else {
+                      return ListView.separated(
+                        itemCount: homeController.allSuplements.length,
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final supplement =
+                              homeController.allSuplements[index];
+                          log("AllSupplements$supplement");
+                          return supplementContainer(
+                            bgColor: AppColors.softWhite,
+                            controller: homeController,
+                            supplement: supplement,
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(height: AppSize.h2);
+                        },
+                      );
+                    }
+                  })
                 ],
               ),
             ),

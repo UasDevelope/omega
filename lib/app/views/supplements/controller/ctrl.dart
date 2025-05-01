@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:omega/app/controllers/home_controller.dart';
 import 'package:omega/app/services/suplement.dart';
 import 'package:omega/app/utils/helpers/toast.dart';
 
@@ -32,6 +33,7 @@ class AddSupplementsController extends GetxController {
   // Observable lists
 
   final supplementOptions = <String>[
+    'Apex Test',
     'Vitamin C',
     'Vitamin D',
     'Vitamin E',
@@ -155,15 +157,17 @@ class AddSupplementsController extends GetxController {
         "name": supplementController.text.trim(),
         "form": formController.text.trim(),
         "reason": reasonController.text.trim(),
-        'day':selectedDayIndex.value,
+        'day': selectedDayIndex.value,
 
-          "time": timeController.text.trim(), // Example: "09:00"
-
+        "time": timeController.text.trim(), // Example: "09:00"
       };
 
       try {
         final response = await supplementServices.addSupplement(data);
         if (response.success) {
+          Get.find<HomeController>().fetchAllSupplements();
+          Get.find<HomeController>().fetchSupplements();
+
           CustomToast.success("Supplement added successfully");
           // Optionally clear form or navigate
           Get.back();

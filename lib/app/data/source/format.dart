@@ -25,7 +25,7 @@ Color statusColor(String status) {
       return AppColors.errorColor;
     case 'pending':
     default:
-      return AppColors.appColor;
+      return AppColors.errorColor;
   }
 }
 

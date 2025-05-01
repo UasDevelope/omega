@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:omega/app/data/models/user_model.dart';
 import 'package:omega/app/services/profile.dart';
@@ -10,6 +10,7 @@ import 'package:omega/app/services/profile.dart';
 import '../data/source/local.dart';
 import '../routes/app_routes.dart';
 import '../utils/helpers/toast.dart';
+
 class ProfileController extends GetxController {
   var name = "Max John".obs;
   var email = "maxjohn@gmail.com".obs;
@@ -26,20 +27,22 @@ class ProfileController extends GetxController {
       isLoading.value = true;
 
       // Clear the stored token or any other relevant data
-      await LocalStorage.deleteValue(LocalStorage.tokenKey); // Assuming you are using LocalStorage
+      await LocalStorage.deleteValue(
+          LocalStorage.tokenKey); // Assuming you are using LocalStorage
 
       // Optionally, show a success message
       CustomToast.success("Logged out successfully");
 
       // Navigate to the login screen
-      Get.offNamed(Routes.login); // Or any route you want to navigate to after logout
-
+      Get.offNamed(
+          Routes.login); // Or any route you want to navigate to after logout
     } catch (e) {
       CustomToast.error("Error logging out: $e");
     } finally {
       isLoading.value = false;
     }
   }
+
   void pickImage() async {
     final picker = ImagePicker();
     final picked = await picker.pickImage(source: ImageSource.gallery);
@@ -72,7 +75,8 @@ class ProfileController extends GetxController {
 
         log("✅ Profile fetched: ${profileData.name}");
       } else {
-        Get.snackbar("Error", profileResponse.message ?? "Failed to load profile.");
+        Get.snackbar(
+            "Error", profileResponse.message ?? "Failed to load profile.");
       }
     } catch (e) {
       log("🚨 Error: $e");
@@ -94,6 +98,7 @@ class ProfileController extends GetxController {
         user.value = response.data;
         name.value = response.data!.name ?? '';
         nameController.text = response.data!.name ?? '';
+        fetchProfile();
 
         Get.snackbar("Success", "Profile updated!");
       } else {

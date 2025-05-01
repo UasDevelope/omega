@@ -71,21 +71,21 @@ class SplashScreen extends StatelessWidget {
           // Version at the bottom
 // Inside Positioned (in SplashScreen)
 
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Obx(() {
-                return TextWidget(
-                  title: Get.find<SplashController>().appVersion.value,
-                  fontSize: 12,
-                  textColor: Colors.grey,
-                  fontFamily: FontSource.poppins,
-                );
-              }),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 20,
+          //   left: 0,
+          //   right: 0,
+          //   child: Center(
+          //     child: Obx(() {
+          //       return TextWidget(
+          //         title: Get.find<SplashController>().appVersion.value,
+          //         fontSize: 12,
+          //         textColor: Colors.grey,
+          //         fontFamily: FontSource.poppins,
+          //       );
+          //     }),
+          //   ),
+          // ),
         ],
       ),
     );
