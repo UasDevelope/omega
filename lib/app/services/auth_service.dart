@@ -1,18 +1,22 @@
-import 'dart:convert';
-import 'dart:developer';
 import '../data/api/api_helper.dart';
 import '../data/api/end_points.dart';
 
 class UserService {
   Future<dynamic> createUser(Map<String, dynamic> userData) async {
     final response = await ApiHelper.post(ApiEndPoints.REGISTERUSER, userData);
-   return response;
+    return response;
   }
 
-Future<dynamic>login(Map<String,dynamic>loginData)async{
-    final response=await ApiHelper.post(ApiEndPoints.LOGIN, loginData);
+  Future<dynamic> login(Map<String, dynamic> loginData) async {
+    final response = await ApiHelper.post(ApiEndPoints.LOGIN, loginData);
     return response;
-}
+  }
+
+  Future<dynamic> verifyOtp(String otp) async {
+    final response = await ApiHelper.post(ApiEndPoints.verifyOtp, {"otp": otp});
+    return response;
+  }
+
   Future<dynamic> getUser(String userId) async {
     return await ApiHelper.get("/users/$userId");
   }
