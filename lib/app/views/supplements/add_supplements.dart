@@ -1,11 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:omega/app/services/suplement.dart';
 
-import '../../utils/helpers/app_size.dart';
-import '../../utils/helpers/app_validator.dart';
+import '../../utils/constants/color.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/container/custom_app_bar.dart';
 import '../../widgets/text_field/custom_text_field.dart';
@@ -16,6 +14,64 @@ class AddSupplements extends GetView<AddSupplementsController> {
   @override
   Widget build(BuildContext context) {
     Get.put(AddSupplementsController(supplementServices: SupplementServices()));
+    void _showCupertinoTimePicker(BuildContext context) {
+      showModalBottomSheet(
+          context: context,
+          backgroundColor: AppColors.softWhite,
+          builder: (BuildContext context) {
+            return Container(
+              height: 300,
+              color: AppColors.softWhite,
+              child: Column(
+                children: [
+                  Container(
+                    color: AppColors.whiteShade,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: AppColors.errorColor),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            // The selected time is handled in the picker
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Done',
+                            style: TextStyle(color: AppColors.appColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: CupertinoDatePicker(
+                      mode: CupertinoDatePickerMode.time,
+                      initialDateTime: DateTime.now(),
+                      onDateTimeChanged: (DateTime newDateTime) {
+                        final hour =
+                            newDateTime.hour.toString().padLeft(2, '0');
+                        final minute =
+                            newDateTime.minute.toString().padLeft(2, '0');
+                        controller.timeController.text = '$hour:$minute';
+                      },
+                      backgroundColor: AppColors.softWhite,
+                      use24hFormat: true,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          });
+    }
+
     return Scaffold(
       appBar: customAppBar(title: "Add Supplements", leading: true),
       body: SingleChildScrollView(
@@ -113,16 +169,17 @@ class AddSupplements extends GetView<AddSupplementsController> {
                   textColor: Colors.black,
                   hintColor: Colors.grey.shade500,
                   onTap: () async {
-                    final picked = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
-                    if (picked != null) {
-                      final hour = picked.hour.toString().padLeft(2, '0');
-                      final minute = picked.minute.toString().padLeft(2, '0');
-                      controller.timeController.text =
-                          '$hour:$minute'; // e.g., "17:09"
-                    }
+                    _showCupertinoTimePicker(context);
+                    // final picked = await showTimePicker(
+                    //   context: context,
+                    //   initialTime: TimeOfDay.now(),
+                    // );
+                    // if (picked != null) {
+                    //   final hour = picked.hour.toString().padLeft(2, '0');
+                    //   final minute = picked.minute.toString().padLeft(2, '0');
+                    //   controller.timeController.text =
+                    //       '$hour:$minute'; // e.g., "17:09"
+                    // }
                   },
                   //   readOnly: true,
                 ),
