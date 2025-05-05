@@ -13,6 +13,7 @@ import '../../widgets/container/custom_container.dart';
 import '../../widgets/container/custom_supplement_container.dart';
 import '../../widgets/text/text_widget.dart';
 import '../HelpScreen/HelpScreen.dart';
+import 'friends.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({super.key});
@@ -76,7 +77,7 @@ class ProfileScreen extends GetView<ProfileController> {
                                 .user.value!.profilePicture.isNotEmpty
                             ? NetworkImage(controller.user.value!.profilePicture
                                 .toString()) // If API provides a profile image URL
-                            : AssetImage(AppAssets.profile)
+                            : AssetImage(AppAssets.noProfile)
                                 as ImageProvider, // Otherwise use the asset image
                         backgroundColor: AppColors.appColor,
                       ),
@@ -118,14 +119,14 @@ class ProfileScreen extends GetView<ProfileController> {
                         //     assetName: AppAssets.progress,
                         //   ),
                         // ),
-                        // InkWell(
-                        //   onTap: () => Get.to(ShareDiaryScreen()),
-                        //   child: buildRowIcon(
-                        //     title: "Friends",
-                        //     textColor: AppColors.textColor,
-                        //     assetName: AppAssets.invite,
-                        //   ),
-                        // ),
+                        InkWell(
+                          onTap: () => Get.to(ShareDiaryScreen()),
+                          child: buildRowIcon(
+                            title: "Friends",
+                            textColor: AppColors.textColor,
+                            assetName: AppAssets.invite,
+                          ),
+                        ),
                       ],
                     ),
                   ),

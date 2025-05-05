@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,11 +58,16 @@ class AddSupplements extends GetView<AddSupplementsController> {
                       mode: CupertinoDatePickerMode.time,
                       initialDateTime: DateTime.now(),
                       onDateTimeChanged: (DateTime newDateTime) {
-                        final hour =
-                            newDateTime.hour.toString().padLeft(2, '0');
+                        final hour = newDateTime.hour % 12 == 0
+                            ? 12
+                            : newDateTime.hour % 12;
                         final minute =
                             newDateTime.minute.toString().padLeft(2, '0');
-                        controller.timeController.text = '$hour:$minute';
+                        final period = newDateTime.hour >= 12 ? 'PM' : 'AM';
+
+                        controller.timeController.text =
+                            '$hour:$minute $period';
+                        log("selected time is ${controller.timeController.text}");
                       },
                       backgroundColor: AppColors.softWhite,
                       use24hFormat: true,
@@ -132,8 +139,8 @@ class AddSupplements extends GetView<AddSupplementsController> {
                     // Find and assign the index of selected day
                     final index = controller.daysOfWeek.indexOf(selectedDay);
                     controller.selectedDayIndex.value = index;
-                    controller.dayController.text =
-                        selectedDay; // Update visible text
+                    controller.dayController.text = selectedDay;
+                    log("selected day is ${controller.dayController.text}");
                   },
                   validator: (value) => value == null || value.isEmpty
                       ? 'Please select a day'

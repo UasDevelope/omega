@@ -113,15 +113,22 @@ Widget buildRowIcon({
   return InkWell(
     onTap: onTap,
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       spacing: effectiveSpacing,
       children: [
+        SizedBox(
+          width: AppSize.w2,
+        ),
         assetName != null ? CustomSvgIcon(assetName: assetName) : child!,
         TextWidget(
           title: title,
           fontWeight: FontWeight.w500,
           textColor: textColor,
           fontSize: effectiveFontSize,
-        )
+        ),
+        SizedBox(
+          width: AppSize.w2,
+        ),
       ],
     ),
   );
@@ -143,10 +150,79 @@ Widget supplementContainer({
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// Supplement Name
-            TextWidget(
-              title: supplement.name,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextWidget(
+                  title: supplement.name,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.dialog(
+                      AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        title: Text(
+                          'Delete Supplement',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.appColor,
+                          ),
+                        ),
+                        content: Text(
+                          'Are you sure you want to delete ${supplement.name}?',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.dimGreyColor,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Get.back(),
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: AppColors.dimGreyColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              controller.deleteSupplement(supplement.id);
+                              Get.back();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.errorColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.delete_outline,
+                    color: AppColors.errorColor,
+                    size: 24,
+                  ),
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
+                ),
+              ],
             ),
             SizedBox(height: 8),
 

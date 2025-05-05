@@ -94,4 +94,17 @@ class SupplementServices {
       return ApiResponse(success: false, message: response.message, data: null);
     }
   }
+
+  Future<ApiResponse> deleteSupplement(String id) async {
+    final ApiResponse response = await ApiHelper.delete(
+      ApiEndPoints.deleteSupplement(id),
+    );
+
+    if (response.success) {
+      return ApiResponse(
+          success: true, message: response.message, data: response.data);
+    } else {
+      return ApiResponse(success: false, message: response.message, data: null);
+    }
+  }
 }

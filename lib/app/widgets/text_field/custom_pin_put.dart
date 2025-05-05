@@ -23,7 +23,7 @@ class PinCodeWidget extends StatelessWidget {
             title: "|",
             textColor: AppColors.textColor,
           ),
-          length: 5,
+          length: 4,
           controller: controller,
           focusedPinTheme: PinTheme(
             height: 50,

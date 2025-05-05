@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:omega/app/controllers/BottomNavController.dart';
 import 'package:omega/app/services/suplement.dart';
+import 'package:omega/app/widgets/image/custom_svg.dart';
 
 import '../../controllers/home_controller.dart';
 import '../../controllers/profile_ctrl.dart';
@@ -65,7 +67,10 @@ class HomeView extends StatelessWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       centerTitle: true,
-      title: Image.asset(AppAssets.logo),
+      title: Image.asset(
+        AppAssets.logo,
+        width: AppSize.getHeight(22),
+      ),
     );
   }
 
@@ -79,23 +84,46 @@ class HomeView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
-            backgroundColor: Color(0xEFEFEF),
+            backgroundColor: Color(0xFFEFEFEF),
             backgroundImage: user != null && user.profilePicture.isNotEmpty
                 ? NetworkImage(user.profilePicture)
                 : AssetImage(AppAssets.noProfile) as ImageProvider,
             radius: 24,
           ),
           SizedBox(width: AppSize.h2),
-          TextWidget(
-            title: user != null && user.name.isNotEmpty
-                ? "Hello, ${user.name}!"
-                : "Hello, Max!",
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
+
+          // Make text ellipsize
+          Flexible(
+            flex: 3,
+            child: TextWidget(
+              title: user != null && user.name.isNotEmpty
+                  ? "Hello, ${user.name}!"
+                  : "Hello, Max!",
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              textOverflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
           ),
+
           Spacer(),
-          SizedBox(width: AppSize.h2),
-          // CustomSvgIcon(assetName: AppAssets.notification),
+          InkWell(
+              onTap: () {
+                final controller = Get.find<BottomNavController>();
+                controller.changeTab(1);
+              },
+              child: CustomSvgIcon(assetName: AppAssets.calender1)),
+          // SizedBox(width: AppSize.h2),
+          // InkWell(
+          //     onTap: () async {
+          //       await NotificationUtil().scheduleNotification(
+          //         id: 1001,
+          //         title: "Meeting Reminder",
+          //         body: "Don't forget the 3 PM meeting today!",
+          //         userProvidedTime: DateTime.now().add(Duration(minutes: 2)),
+          //       );
+          //     },
+          //     child: CustomSvgIcon(assetName: AppAssets.notification)),
         ],
       );
     });

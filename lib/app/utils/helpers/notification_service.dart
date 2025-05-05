@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:omega/app/data/source/local.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class NotificationUtil {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -208,5 +209,45 @@ class NotificationUtil {
         AuthorizationStatus.provisional) {
       log.log("Notification permission granted provisionally");
     }
+  }
+
+  Future<void> scheduleNotification({
+    required int id,
+    required String title,
+    required String body,
+    required DateTime userProvidedTime,
+    String? payload,
+  }) async {
+    final androidDetails = AndroidNotificationDetails(
+      'scheduled_channel_id',
+      'Scheduled Notifications',
+      channelDescription: 'Notification channel for scheduled alerts',
+      importance: Importance.max,
+      priority: Priority.high,
+      playSound: true,
+    );
+
+    final iosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    final details = NotificationDetails(
+      android: androidDetails,
+      iOS: iosDetails,
+    );
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.from(userProvidedTime, tz.local),
+      details,
+      payload: payload ?? 'No Payload',
+      androidScheduleMode: AndroidScheduleMode.exact,
+    );
+
+    log.log("Notification scheduled at: $userProvidedTime");
   }
 }

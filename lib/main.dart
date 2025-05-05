@@ -3,6 +3,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omega/app/utils/helpers/notification_service.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
@@ -29,6 +31,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
       // options: DefaultFirebaseOptions.currentPlatform,
       );
+  tz.initializeTimeZones();
+  tz.setLocalLocation(
+      tz.getLocation('Asia/Karachi')); // Set your desired timezone
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MyApp());
 }

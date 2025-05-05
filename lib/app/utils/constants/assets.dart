@@ -7,6 +7,7 @@ class AppAssets {
   static get noProfile => "noProfile".png;
   static get calender => "calender".png;
   static get calender1 => "calender".svg;
+  static get chart => "chart".jpeg;
   static get notification => "notification".svg;
   static get dashboard => "dashboard".png;
   static get coverImage => "coverImage".png;

@@ -43,7 +43,7 @@ class HelpScreen extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
               icon: Icons.email_outlined,
-              onTap: () => _launchEmail('support@apexbiotics.co.uk'),
+              onTap: () => launchEmail('support@apexbiotics.co.uk'),
             ),
             const SizedBox(height: 16),
             // FAQ Card
@@ -171,14 +171,18 @@ class HelpScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Future<void> _launchEmail(String email) async {
-    final Uri emailUri = Uri(scheme: 'mailto', path: email);
-    if (await canLaunchUrl(emailUri)) {
-      await launchUrl(emailUri, mode: LaunchMode.externalApplication);
-    } else {
-      log("Could not launch email client $emailUri");
-    }
+Future<void> launchEmail(String email) async {
+  final Uri emailUri = Uri(
+    scheme: 'mailto',
+    path: email,
+    query: 'subject=App Feedback&body=App Version 3.23',
+  );
+  if (await canLaunchUrl(emailUri)) {
+    await launchUrl(emailUri, mode: LaunchMode.externalNonBrowserApplication);
+  } else {
+    log("Could not launch email client $emailUri");
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omega/app/controllers/home_controller.dart';
+import 'package:omega/app/utils/constants/assets.dart';
 import 'package:omega/app/views/progress/progress_view.dart';
 
 import '../../data/models/daily_suppliment.dart';
@@ -39,9 +40,21 @@ class WeeklyBarChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Weekly Supplements",
-              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+            Row(
+              children: [
+                Image.asset(
+                  AppAssets.chart,
+                  width: 24,
+                  height: 24,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Weekly Supplements",
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Expanded(

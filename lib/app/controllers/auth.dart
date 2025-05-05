@@ -50,8 +50,7 @@ class authController extends GetxController {
   }
 
   Future<void> login() async {
-    String? deviceToken =
-        await NotificationUtil().getToken(); // Generate FCM token
+    // Generate FCM token
     // RemoteMessage fakeMessage = RemoteMessage(
     //   notification: RemoteNotification(
     //     title: "Test Notification",
@@ -65,14 +64,14 @@ class authController extends GetxController {
 
     // NotificationUtil().showNotification(fakeMessage);
     if (formKey.currentState!.validate()) {
-      Map<String, dynamic> loginData = {
-        "email": emailController.text,
-        "password": passwordController.text,
-        "deviceToken": deviceToken,
-      };
       try {
         isLoading.value = true;
-
+        String? deviceToken = await NotificationUtil().getToken();
+        Map<String, dynamic> loginData = {
+          "email": emailController.text,
+          "password": passwordController.text,
+          "deviceToken": deviceToken,
+        };
         var response = await userService.login(loginData);
         if (response.success) {
           LocalStorage.saveString(
@@ -95,7 +94,8 @@ class authController extends GetxController {
   Future<void> verifyOtp() async {
     try {
       isLoading.value = true;
-      var response = await userService.verifyOtp(otpController.text);
+      var response =
+          await userService.verifyOtp(otpController.text, emailController.text);
       if (response.success) {
         CustomToast.success("Successfully Verified");
         Get.offNamed(Routes.login);

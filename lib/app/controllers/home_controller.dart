@@ -83,6 +83,18 @@ class HomeController extends GetxController {
     }
   }
 
+  Future<void> deleteSupplement(String id) async {
+    var response = await supplementServices.deleteSupplement(id);
+    if (response.success) {
+      CustomToast.success("Supplement deleted");
+    } else {
+      CustomToast.error("Error ${response.message}");
+    }
+    fetchAllSupplements();
+    fetchSupplements();
+    weeklySummry();
+  }
+
   void fetchAllSupplements() async {
     try {
       final response = await supplementServices.allSupplements();

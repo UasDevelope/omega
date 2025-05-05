@@ -34,11 +34,7 @@ class AddSupplementsController extends GetxController {
 
   final supplementOptions = <String>[
     'Apex Test',
-    'Vitamin C',
-    'Vitamin D',
-    'Vitamin E',
     'Vitamin A',
-    'Vitamin K',
     'Vitamin B1',
     'Vitamin B2',
     'Vitamin B3',
@@ -47,6 +43,10 @@ class AddSupplementsController extends GetxController {
     'Vitamin B7 (Biotin)',
     'Vitamin B9 (Folate)',
     'Vitamin B12',
+    'Vitamin C',
+    'Vitamin D',
+    'Vitamin E',
+    'Vitamin K',
     'Magnesium',
     'Calcium',
     'Zinc',
@@ -108,7 +108,33 @@ class AddSupplementsController extends GetxController {
     'Digestive Enzymes',
     'Psyllium Husk',
     'Apple Cider Vinegar',
-    'Glucosamine'
+    'Glucosamine',
+    'Chondroitin',
+    'MSM',
+    'Boswellia',
+    'HMB',
+    'CLA',
+    'Betaine',
+    'Electrolytes',
+    'Hydrolyzed Whey Protein',
+    'Casein Protein',
+    'Whey Protein',
+    'Glycine',
+    'L-Carnitine',
+    'Inositol',
+    'DIM',
+    'Red Yeast Rice',
+    'Artichoke Extract',
+    'Grapeseed Extract',
+    'Olive Leaf Extract',
+    'Elderberry',
+    'Peppermint Oil',
+    'Chamomile',
+    'Valerian Root',
+    'Skullcap',
+    'Holy Basil',
+    'Tribulus Terrestris',
+    'Shilajit'
   ].obs;
   List<String> formOptions = [
     'Capsule',
@@ -150,26 +176,87 @@ class AddSupplementsController extends GetxController {
     "Muscle recovery",
     "Energy"
   ].obs;
+  DateTime getNextOccurrenceOfWeekday({
+    required int selectedWeekday, // Monday = 1, Sunday = 7
+    required String time, // Format: "hh:mm AM/PM"
+  }) {
+    final now = DateTime.now();
+    final currentWeekday = now.weekday;
+
+    final timeParts = time.split(" ");
+    final hourMinute = timeParts[0].split(":");
+    int hour = int.parse(hourMinute[0]);
+    int minute = int.parse(hourMinute[1]);
+
+    // Convert to 24-hour format
+    final isPM = timeParts[1].toUpperCase() == "PM";
+    if (isPM && hour != 12) hour += 12;
+    if (!isPM && hour == 12) hour = 0;
+
+    // Get difference in days
+    int dayDiff = (selectedWeekday - currentWeekday + 7) % 7;
+    if (dayDiff == 0 &&
+        DateTime(now.year, now.month, now.day, hour, minute).isBefore(now)) {
+      dayDiff = 7; // schedule for next week if time already passed today
+    }
+
+    final targetDate = now.add(Duration(days: dayDiff));
+    return DateTime(
+        targetDate.year, targetDate.month, targetDate.day, hour, minute);
+  }
+
+  String convertTo24HourFormat(String time) {
+    final timeParts = time.split(" ");
+    final hourMinute = timeParts[0].split(":");
+    int hour = int.parse(hourMinute[0]);
+    int minute = int.parse(hourMinute[1]);
+    final isPM = timeParts[1].toUpperCase() == "PM";
+
+    if (isPM && hour != 12) hour += 12;
+    if (!isPM && hour == 12) hour = 0;
+
+    return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+  }
 
   void saveSupplementData() async {
     if (formKey.currentState?.validate() ?? false) {
+      final scheduledDateTime = getNextOccurrenceOfWeekday(
+        selectedWeekday: selectedDayIndex.value,
+        time: timeController.text.trim(),
+      );
+      final formattedTime = convertTo24HourFormat(timeController.text.trim());
+
       final Map<String, dynamic> data = {
         "name": supplementController.text.trim(),
         "form": formController.text.trim(),
         "reason": reasonController.text.trim(),
-        'day': selectedDayIndex.value,
-
-        "time": timeController.text.trim(), // Example: "09:00"
+        'day': selectedDayIndex.value, // Monday = 1
+        "time": formattedTime, // e.g., "14:30"
       };
 
       try {
         final response = await supplementServices.addSupplement(data);
         if (response.success) {
+          // 🔔 Schedule Notification
+          final scheduledDateTime = getNextOccurrenceOfWeekday(
+            selectedWeekday: selectedDayIndex.value,
+            time: timeController.text.trim(),
+          );
+
+          // await NotificationUtil().scheduleNotification(
+          //   id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          //   title: "Appex Biotix",
+          //   body:
+          //       "Time to take your supplement: ${supplementController.text.trim()}",
+          //   userProvidedTime: scheduledDateTime,
+          // );
+
+          // ✅ Refresh and feedback
           Get.find<HomeController>().fetchAllSupplements();
           Get.find<HomeController>().fetchSupplements();
+          Get.find<HomeController>().weeklySummry();
 
           CustomToast.success("Supplement added successfully");
-          // Optionally clear form or navigate
           Get.back();
         } else {
           CustomToast.error("Failed to add supplement");

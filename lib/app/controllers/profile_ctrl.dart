@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:omega/app/data/models/user_model.dart';
+import 'package:omega/app/services/auth_service.dart';
 import 'package:omega/app/services/profile.dart';
+import 'package:omega/app/utils/helpers/notification_service.dart';
 
 import '../data/source/local.dart';
 import '../routes/app_routes.dart';
@@ -52,10 +54,22 @@ class ProfileController extends GetxController {
     }
   }
 
+  Future<void> updateDeviceToken() async {
+    final String deviceToken = await NotificationUtil().getToken();
+
+    try {
+      final response = UserService().updateDeviceToken(deviceToken);
+      log("Response for updating device token is $response");
+    } catch (e) {
+      log("Error is $e");
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
     fetchProfile();
+    updateDeviceToken();
   }
 
   Future<void> fetchProfile() async {

@@ -7,13 +7,21 @@ class UserService {
     return response;
   }
 
+  Future<dynamic> updateDeviceToken(String deviceToken) async {
+    final response = await ApiHelper.put(ApiEndPoints.updateDeviceToken, {
+      "deviceToken": deviceToken,
+    });
+    return response;
+  }
+
   Future<dynamic> login(Map<String, dynamic> loginData) async {
     final response = await ApiHelper.post(ApiEndPoints.LOGIN, loginData);
     return response;
   }
 
-  Future<dynamic> verifyOtp(String otp) async {
-    final response = await ApiHelper.post(ApiEndPoints.verifyOtp, {"otp": otp});
+  Future<dynamic> verifyOtp(String otp, String email) async {
+    final response = await ApiHelper.post(
+        ApiEndPoints.verifyOtp, {"otp": otp, "email": email});
     return response;
   }
 

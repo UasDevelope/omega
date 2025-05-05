@@ -15,6 +15,7 @@ AppBar customAppBar({required String title, bool? action, bool? leading}) {
     backgroundColor: AppColors.whiteShade,
     elevation: 0,
     centerTitle: false,
+    leadingWidth: preferLeading ? AppSize.getWidth(20) : 0,
     leading: preferLeading
         ? IconButton(
             onPressed: () {
