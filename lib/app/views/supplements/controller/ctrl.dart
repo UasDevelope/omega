@@ -6,6 +6,8 @@ import 'package:omega/app/controllers/home_controller.dart';
 import 'package:omega/app/services/suplement.dart';
 import 'package:omega/app/utils/helpers/toast.dart';
 
+import '../../../utils/helpers/notification_service.dart';
+
 class AddSupplementsController extends GetxController {
   final supplementController = TextEditingController();
   final formController = TextEditingController();
@@ -243,14 +245,20 @@ class AddSupplementsController extends GetxController {
             time: timeController.text.trim(),
           );
 
-          // await NotificationUtil().scheduleNotification(
-          //   id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-          //   title: "Appex Biotix",
-          //   body:
-          //       "Time to take your supplement: ${supplementController.text.trim()}",
-          //   userProvidedTime: scheduledDateTime,
-          // );
-
+          await NotificationUtil().scheduleNotification(
+            id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+            title: "Appex Biotix",
+            body:
+                "Time to take your supplement: ${supplementController.text.trim()}",
+            userProvidedTime: scheduledDateTime,
+          );
+          await NotificationUtil().scheduleNotification(
+            id: DateTime.now().millisecondsSinceEpoch ~/ 1002,
+            title: "Appex Biotix",
+            body:
+                "you missed your supplement: ${supplementController.text.trim()}",
+            userProvidedTime: scheduledDateTime.add(Duration(seconds: 30)),
+          );
           // ✅ Refresh and feedback
           Get.find<HomeController>().fetchAllSupplements();
           Get.find<HomeController>().fetchSupplements();

@@ -250,4 +250,13 @@ class NotificationUtil {
 
     log.log("Notification scheduled at: $userProvidedTime");
   }
+
+  Future<void> cancelNotification(int id) async {
+    try {
+      await flutterLocalNotificationsPlugin.cancel(id);
+      log.log("Notification with ID $id cancelled successfully.");
+    } catch (e) {
+      log.log("Failed to cancel notification with ID $id: $e");
+    }
+  }
 }
