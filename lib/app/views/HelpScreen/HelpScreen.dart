@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
+import 'package:omega/app/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpScreen extends StatelessWidget {
@@ -37,13 +38,9 @@ class HelpScreen extends StatelessWidget {
               title: 'Contact Us',
               subtitle: 'Reach out for support or inquiries',
               email: 'support@apexbiotics.co.uk',
-              gradient: const LinearGradient(
-                colors: [Color(0xFF4CAF50), Color(0xFF81C784)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
               icon: Icons.email_outlined,
-              onTap: () => launchEmail('support@apexbiotics.co.uk'),
+              onTap: () => launchEmail('support@apexbiotics.co.uk', 'Help',
+                  "I need help about supplements"),
             ),
             const SizedBox(height: 16),
             // FAQ Card
@@ -52,11 +49,6 @@ class HelpScreen extends StatelessWidget {
               title: 'Frequently Asked Questions',
               subtitle: 'Answers to common questions about the app',
               email: 'support@apexbiotics.co.uk',
-              gradient: const LinearGradient(
-                colors: [Color(0xFF2196F3), Color(0xFF64B5F6)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
               icon: Icons.question_answer_outlined,
               onTap: () {
                 Navigator.push(
@@ -72,11 +64,6 @@ class HelpScreen extends StatelessWidget {
               title: 'About Us',
               subtitle: 'Our mission and story',
               email: 'support@apexbiotics.co.uk',
-              gradient: const LinearGradient(
-                colors: [Color(0xFFFF9800), Color(0xFFFFB74D)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
               icon: Icons.info_outline,
               onTap: () {
                 Navigator.push(
@@ -93,11 +80,6 @@ class HelpScreen extends StatelessWidget {
               title: 'Privacy Policy',
               subtitle: 'Learn how we protect your data',
               email: 'support@apexbiotics.co.uk',
-              gradient: const LinearGradient(
-                colors: [Color(0xFF9C27B0), Color(0xFFBA68C8)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
               icon: Icons.lock_outline,
               onTap: () {
                 Navigator.push(
@@ -118,7 +100,6 @@ class HelpScreen extends StatelessWidget {
     required String title,
     required String subtitle,
     required String email,
-    required LinearGradient gradient,
     required IconData icon,
     required VoidCallback onTap,
   }) {
@@ -128,7 +109,7 @@ class HelpScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         width: Get.width,
         decoration: BoxDecoration(
-          gradient: gradient,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -140,7 +121,7 @@ class HelpScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, color: Colors.white, size: 30),
+            Icon(icon, color: Colors.black54, size: 30),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -151,7 +132,7 @@ class HelpScreen extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -159,13 +140,14 @@ class HelpScreen extends StatelessWidget {
                     subtitle,
                     style: const TextStyle(
                       fontSize: 14,
-                      color: Colors.white70,
+                      color: Colors.black54,
                     ),
                   ),
                 ],
               ),
             ),
-            const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 20),
+            const Icon(Icons.arrow_forward_ios,
+                color: AppColors.appColor, size: 20),
           ],
         ),
       ),
@@ -173,11 +155,11 @@ class HelpScreen extends StatelessWidget {
   }
 }
 
-Future<void> launchEmail(String email) async {
+Future<void> launchEmail(String email, String subject, String body) async {
   final Uri emailUri = Uri(
     scheme: 'mailto',
     path: email,
-    query: 'subject=App Feedback&body=App Version 3.23',
+    query: 'subject=$subject&body=$body',
   );
   if (await canLaunchUrl(emailUri)) {
     await launchUrl(emailUri, mode: LaunchMode.externalNonBrowserApplication);
@@ -271,8 +253,8 @@ class FAQScreen extends StatelessWidget {
                     color: Color(0xFF333333),
                   ),
                 ),
-                iconColor: const Color(0xFF2196F3),
-                collapsedIconColor: const Color(0xFF2196F3),
+                iconColor: AppColors.appColor,
+                collapsedIconColor: AppColors.appColor,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),

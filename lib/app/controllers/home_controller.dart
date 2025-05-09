@@ -75,6 +75,7 @@ class HomeController extends GetxController {
       Map<String, dynamic> data = {"status": status};
       var response = await supplementServices.updateStatus(id, data);
       if (response.success) {
+        weeklySummry();
         CustomToast.success("Status updated to $status");
       }
     } catch (e) {
@@ -106,7 +107,7 @@ class HomeController extends GetxController {
         log("Failed error ${response.message}");
       }
     } catch (e) {
-      log("Error fetching supplements: $e");
+      log("Error fetching supplements here 1: $e");
       CustomToast.error("Something went wrong");
     }
   }
@@ -122,7 +123,7 @@ class HomeController extends GetxController {
         log("Failed error ${response.message}");
       }
     } catch (e) {
-      log("Error fetching supplements: $e");
+      log("Error fetching supplements here2: $e");
       CustomToast.error("Something went wrong");
     }
   }
@@ -138,7 +139,7 @@ class HomeController extends GetxController {
         log("Failed error ${response.message} ${response.data} ${response.success}");
       }
     } catch (e) {
-      log("Error fetching supplements: $e");
+      log("Error fetching supplements here3: $e");
       CustomToast.error("Something went wrong");
     }
   }

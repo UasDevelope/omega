@@ -1,15 +1,19 @@
-import '../../utils/constants/assets.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/notifcation_controller.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/helpers/app_size.dart';
 import '../../widgets/container/custom_app_bar.dart';
 import '../../widgets/text/text_widget.dart';
-import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(NotificationController());
+    controller.fetchNotification();
     return Scaffold(
       appBar: customAppBar(title: "Notifications", leading: true),
       body: Padding(

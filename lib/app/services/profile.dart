@@ -30,27 +30,36 @@ class ProfileServices {
 
   Future<ApiResponse<UserModel>> updateProfile({
     required String name,
-    required File profilePictureFile, // Optional profile picture file
+    File? profilePictureFile,
   }) async {
     log("🌐 Sending PUT request to: ${ApiEndPoints.profile}");
-    // If there's a profile picture, pass it along with the request
-    final response = await ApiHelper.postFile(
-      ApiEndPoints.profile,
-      fileFieldKey:
-          'profilePicture', // key should match the backend expected field
-      method: 'PUT', name: name, imageFile: profilePictureFile,
-    );
+
+    late ApiResponse<dynamic> response;
+
+    if (profilePictureFile != null) {
+      // Send multipart request with image
+      response = await ApiHelper.postFile(
+        ApiEndPoints.profile,
+        fileFieldKey: 'profilePicture',
+        method: 'PUT',
+        name: name,
+        imageFile: profilePictureFile,
+      );
+    } else {
+      // Send JSON-only request (no file)
+      response = await ApiHelper.put(ApiEndPoints.profile, {
+        'name': name,
+      });
+    }
 
     log("📥 API Response: $response");
 
     if (response.success) {
-      log("✅ Profile update successful - parsing updated data");
       return ApiResponse(
         success: true,
         data: UserModel.fromJson(response.data["data"]),
       );
     } else {
-      log("❌ Failed to update profile: ${response.message}");
       return ApiResponse(
         success: false,
         message: response.message ?? 'Unknown error',

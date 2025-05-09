@@ -30,7 +30,7 @@ class ShareDiaryScreen extends GetView<FriendsController> {
           TextFormField(
             controller: controller.inputController,
             decoration: InputDecoration(
-              hintText: "Enter email or username",
+              hintText: "Enter email",
               filled: true,
               fillColor: Colors.grey.shade100,
               hintStyle: TextStyle(color: Colors.grey.shade500),
@@ -97,8 +97,8 @@ class ShareDiaryScreen extends GetView<FriendsController> {
                 indicatorColor: AppColors.appColor,
                 labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                 tabs: const [
-                  Tab(text: "Share Diary"),
-                  // Tab(text: "Invite Friends"),
+                  // Tab(text: "Share Diary"),
+                  Tab(text: "Invite Friends"),
                 ],
               ),
               Expanded(

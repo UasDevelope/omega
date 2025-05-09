@@ -143,12 +143,12 @@ class WeeklyBarChart extends StatelessWidget {
   List<BarChartGroupData> _getBarGroups(List<DailyEntry> data) {
     //
     return data.asMap().entries.map((entry) {
-      log("Key is ${entry.key} ${entry.value.total.toDouble()}");
+      log("Key is ${entry.key} ${entry.value.taken.toDouble()}");
       return BarChartGroupData(
         x: entry.key,
         barRods: [
           BarChartRodData(
-            toY: entry.value.total.toDouble(),
+            toY: entry.value.taken.toDouble(),
             color: AppColors.appColor,
             width: 12,
             borderRadius: BorderRadius.circular(4),
@@ -161,7 +161,7 @@ class WeeklyBarChart extends StatelessWidget {
   double _getMaxY(List<DailyEntry> data) {
     if (data.isEmpty) return 1;
 
-    final maxTotal = data.map((e) => e.total).reduce((a, b) => a > b ? a : b);
+    final maxTotal = data.map((e) => e.taken).reduce((a, b) => a > b ? a : b);
 
     // Add some padding (e.g. 20% higher for better scaling)
     return (maxTotal * 1.2).ceilToDouble();

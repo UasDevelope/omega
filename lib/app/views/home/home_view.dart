@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omega/app/controllers/BottomNavController.dart';
+import 'package:omega/app/routes/app_routes.dart';
 import 'package:omega/app/services/suplement.dart';
-import 'package:omega/app/utils/helpers/notification_service.dart';
 import 'package:omega/app/widgets/image/custom_svg.dart';
 
 import '../../controllers/home_controller.dart';
@@ -117,12 +117,7 @@ class HomeView extends StatelessWidget {
           SizedBox(width: AppSize.h2),
           InkWell(
               onTap: () async {
-                await NotificationUtil().scheduleNotification(
-                  id: 1001,
-                  title: "Meeting Reminder",
-                  body: "Don't forget the 3 PM meeting today!",
-                  userProvidedTime: DateTime.now().add(Duration(seconds: 10)),
-                );
+                Get.toNamed(Routes.notification);
                 // await NotificationUtil().cancelNotification(1001);
               },
               child: CustomSvgIcon(assetName: AppAssets.notification)),

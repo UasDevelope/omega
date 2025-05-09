@@ -65,10 +65,10 @@ class DailyEntry {
     return DailyEntry(
       day: json['day'],
       date: json['date'],
-      total: json['total'],
-      taken: json['taken'],
-      missed: json['missed'],
-      adherenceRate: json['adherenceRate'],
+      total: (json['total'] as num).toInt(),
+      taken: (json['taken'] as num).toInt(),
+      missed: (json['missed'] as num).toInt(),
+      adherenceRate: (json['adherenceRate'] as num).toInt(),
     );
   }
 

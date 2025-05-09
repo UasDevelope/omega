@@ -9,6 +9,7 @@ import '../data/models/daily_suppliment.dart';
 class SupplementServices {
   Future<dynamic> addSupplement(Map<String, dynamic> userData) async {
     var response = await ApiHelper.post(ApiEndPoints.supplements, userData);
+    log("Response from supplement is $response");
     return response;
   }
 

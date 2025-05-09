@@ -11,4 +11,5 @@ class ApiEndPoints {
   static get today => "/supplements/supplements-today";
   static get profile => "/auth/profile";
   static get weekly => "/supplements/progress/daily";
+  static get notification => "/notifications/get-user-notifications";
 }

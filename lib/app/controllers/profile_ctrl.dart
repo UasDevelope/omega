@@ -105,13 +105,13 @@ class ProfileController extends GetxController {
     try {
       final response = await profileServices.updateProfile(
         name: nameController.text,
-        profilePictureFile: profileImage.value!,
+        profilePictureFile: profileImage.value,
       );
 
       if (response.success && response.data != null) {
         user.value = response.data;
-        name.value = response.data!.name ?? '';
-        nameController.text = response.data!.name ?? '';
+        name.value = response.data!.name;
+        nameController.text = response.data!.name;
         fetchProfile();
 
         Get.snackbar("Success", "Profile updated!");
