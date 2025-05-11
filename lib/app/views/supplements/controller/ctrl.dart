@@ -31,8 +31,8 @@ class AddSupplementsController extends GetxController {
   SupplementServices supplementServices;
   AddSupplementsController({required this.supplementServices});
   // Observable lists
-
   final supplementOptions = <String>[
+    "Apex Test",
     'Vitamin C - Ascorbic acid',
     'Vitamin C - Sodium ascorbate',
     'Vitamin C - Calcium ascorbate',

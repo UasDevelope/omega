@@ -39,8 +39,20 @@ class HelpScreen extends StatelessWidget {
               subtitle: 'Reach out for support or inquiries',
               email: 'support@apexbiotics.co.uk',
               icon: Icons.email_outlined,
-              onTap: () => launchEmail('support@apexbiotics.co.uk', 'Help',
-                  "I need help about supplements"),
+                onTap: () async {
+                  final Uri emailUri = Uri(
+                    scheme: 'mailto',
+                    path: 'support@apexbiotics.co.uk',
+                  );
+
+                  if (await canLaunchUrl(emailUri)) {
+                    await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+                  } else {
+                    print('Could not launch email client');
+                    // Optional: Show snackbar or dialog to notify user
+                  }
+                }
+
             ),
             const SizedBox(height: 16),
             // FAQ Card
@@ -167,13 +179,35 @@ Future<void> launchEmail(String email, String subject, String body) async {
     log("Could not launch email client $emailUri");
   }
 }
-
 class FAQScreen extends StatelessWidget {
   const FAQScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final faqs = [
+      {
+        'question': 'How do i retrieve my password or username?',
+        'answer':
+        'On the sign in screen you can request a password reset by email by clicking on the forgot password section.How do i make my diary visible to other users?'
+      },
+      {
+        'question': 'How does Apex Biotics protect my personal information?',
+        'answer':
+        'Your personal information is protected with industry-standard encryption and stored securely. We only collect data necessary for app functionality, such as your profile details and supplement diary entries. You can review our Privacy Policy for more details.'
+      },
+      {
+        'question': 'How do i set up push notifications?',
+        'answer':
+        'Click on the settings tab and click turn on or off push notifications.'
+      },
+
+
+
+      {
+        'question': 'How do i add a photo to my profile?',
+        'answer':
+        'Click on the settings tab, then click on profile then click add profile photo.'
+      },
       {
         'question': 'How does Apex Biotics protect my personal information?',
         'answer':
@@ -307,11 +341,12 @@ class AboutUsScreen extends StatelessWidget {
               width: Get.width,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFFF9800), Color(0xFFFFB74D)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                color: Colors.white,
+                // gradient: const LinearGradient(
+                //   colors: [Color(0xFFFF9800), Color(0xFFFFB74D)],
+                //   begin: Alignment.topLeft,
+                //   end: Alignment.bottomRight,
+                // ),
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
@@ -329,7 +364,7 @@ class AboutUsScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   SizedBox(height: 8),
@@ -337,7 +372,7 @@ class AboutUsScreen extends StatelessWidget {
                     'At APEX BIOTICS, our mission is to create a world in which people can enjoy a healthy, clean, and satisfying nutritional experience.',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white70,
+                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -397,11 +432,12 @@ class PrivacyPolicyScreen extends StatelessWidget {
               width: Get.width,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF9C27B0), Color(0xFFBA68C8)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                color: Colors.white,
+                // gradient: const LinearGradient(
+                //   colors: [Color(0xFF9C27B0), Color(0xFFBA68C8)],
+                //   begin: Alignment.topLeft,
+                //   end: Alignment.bottomRight,
+                // ),
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
@@ -419,7 +455,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   SizedBox(height: 8),
@@ -427,7 +463,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     'Last Updated: May 1, 2025',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white70,
+                      color: Colors.black54,
                     ),
                   ),
                 ],

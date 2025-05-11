@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:omega/app/utils/helpers/notification_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
 import 'app/utils/constants/color.dart';
@@ -29,11 +28,12 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // <- Must be here
   await Firebase.initializeApp(
-      // options: DefaultFirebaseOptions.currentPlatform,
-      );
+    // options: DefaultFirebaseOptions.currentPlatform,
+  );
   tz.initializeTimeZones();
   tz.setLocalLocation(
-      tz.getLocation('Asia/Karachi')); // Set your desired timezone
+    tz.getLocation('Asia/Karachi'),
+  ); // Set your desired timezone
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MyApp());

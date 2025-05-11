@@ -8,9 +8,7 @@ import '../../utils/helpers/app_size.dart';
 import '../../utils/helpers/app_validator.dart';
 import '../../widgets/button/custom_button.dart';
 import '../../widgets/text_field/custom_text_field.dart';
-
 class LoginScreen extends GetView<authController> {
-  LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,9 +40,11 @@ class LoginScreen extends GetView<authController> {
                         hintColor: Colors.grey.shade500,
                       ),
                       AppTextFormField(
+                        isPassword:true,
                         validator: AppValidators.validatePassword,
                         controller: controller.passwordController,
                         hintText: 'Enter your password',
+
                         borderColor: Colors.grey.shade300,
                         backgroundColor: Colors.grey.shade100,
                         textColor: Colors.black,

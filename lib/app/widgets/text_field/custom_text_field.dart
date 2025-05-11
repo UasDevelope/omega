@@ -8,13 +8,13 @@ import '../../utils/helpers/app_size.dart';
 import '../image/custom_svg.dart';
 import '../text/text_widget.dart';
 
-class AppTextFormField extends StatelessWidget {
+class AppTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String? prefixIcon;
   final bool isPassword;
   final bool isDropdown;
-  final VoidCallback? onTap; // 👈 Add onTap
+  final VoidCallback? onTap;
 
   final List<String>? dropdownItems;
   final Color borderColor;
@@ -42,70 +42,87 @@ class AppTextFormField extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
+}
+
+class _AppTextFormFieldState extends State<AppTextFormField> {
+  bool _obscure = true;
+
+  @override
   Widget build(BuildContext context) {
     final baseDecoration = InputDecoration(
-      prefixIcon: (prefixIcon != null && prefixIcon!.isNotEmpty
+      prefixIcon: (widget.prefixIcon != null && widget.prefixIcon!.isNotEmpty
           ? Padding(
               padding: const EdgeInsets.all(10),
               child: Image.asset(
-                prefixIcon!,
-                color: hintColor,
+                widget.prefixIcon!,
+                color: widget.hintColor,
                 height: 20,
                 width: 20,
                 fit: BoxFit.contain,
               ),
             )
           : null),
-      hintText: hintText,
-      hintStyle: TextStyle(fontSize: 16, color: hintColor),
+      suffixIcon: widget.isPassword
+          ? IconButton(
+              icon: Icon(
+                _obscure ? Icons.visibility_off : Icons.visibility,
+                color: widget.hintColor,
+              ),
+              onPressed: () => setState(() => _obscure = !_obscure),
+            )
+          : null,
+      hintText: widget.hintText,
+      hintStyle: TextStyle(fontSize: 16, color: widget.hintColor),
       filled: true,
-      fillColor: backgroundColor,
+      fillColor: widget.backgroundColor,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: borderColor, width: 1.5),
+        borderSide: BorderSide(color: widget.borderColor, width: 1.5),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: borderColor, width: 1.5),
+        borderSide: BorderSide(color: widget.borderColor, width: 1.5),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: borderColor, width: 2),
+        borderSide: BorderSide(color: widget.borderColor, width: 2),
       ),
       contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
     );
 
-    if (isDropdown) {
+    if (widget.isDropdown) {
       return DropdownButtonFormField<String>(
         decoration: baseDecoration,
-        value: controller.text.isNotEmpty ? controller.text : null,
-        items: dropdownItems
+        value:
+            widget.controller.text.isNotEmpty ? widget.controller.text : null,
+        items: widget.dropdownItems
             ?.map((item) => DropdownMenuItem(
                   value: item,
-                  child: Text(item, style: TextStyle(color: textColor)),
+                  child: Text(item, style: TextStyle(color: widget.textColor)),
                 ))
             .toList(),
         onChanged: (value) {
-          controller.text = value ?? '';
-          onChanged?.call(value ?? '');
+          widget.controller.text = value ?? '';
+          widget.onChanged?.call(value ?? '');
         },
-        validator: validator,
+        validator: widget.validator,
       );
     }
 
     return TextFormField(
-      controller: controller,
-      obscureText: isPassword,
+      controller: widget.controller,
+      obscureText: widget.isPassword ? _obscure : false,
+      obscuringCharacter: '*',
       keyboardType: TextInputType.text,
       style: GoogleFonts.plusJakartaSans(
         fontSize: 18,
-        color: textColor,
+        color: widget.textColor,
         fontWeight: FontWeight.w600,
       ),
-      validator: validator,
-      onChanged: onChanged,
-      onTap: onTap, // 👈 Use onTap for textfield
-
+      validator: widget.validator,
+      onChanged: widget.onChanged,
+      onTap: widget.onTap,
       decoration: baseDecoration,
     );
   }
