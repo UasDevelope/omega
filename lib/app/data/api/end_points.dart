@@ -12,4 +12,5 @@ class ApiEndPoints {
   static get profile => "/auth/profile";
   static get weekly => "/supplements/progress/daily";
   static get notification => "/notifications/get-user-notifications";
+  static get enableNotification=>"/settings/notifications";
 }

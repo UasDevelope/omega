@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:omega/app/data/api/end_points.dart';
+import 'package:omega/app/utils/helpers/toast.dart';
 
 import '../../controllers/notifcation_controller.dart';
+import '../../data/api/api_helper.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/helpers/app_size.dart';
 import '../../widgets/container/custom_app_bar.dart';
@@ -43,40 +48,53 @@ class _NotificationScreenState extends State<NotificationScreen> {
             const SizedBox(height: 8),
             TextWidget(
               title:
-              "Stay updated on important job activity. Uncheck any notifications you don’t want to receive.",
+                  "Stay updated on important job activity. Uncheck any notifications you don’t want to receive.",
               fontWeight: FontWeight.w400,
               textAlign: TextAlign.start,
               textColor: AppColors.textColor.withOpacity(0.7),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             buildRow(
               "Enabling/Disabling Notifications",
               Switch(
-                activeColor: AppColors.appColor,
-                inactiveThumbColor: AppColors.softWhite,
-                inactiveTrackColor: AppColors.softWhite,
-                value: notificationsEnabled,
-                onChanged: (val) {
-                  setState(() {
-                    notificationsEnabled = val;
-                  });
-                },
-              ),
+                  activeColor: AppColors.appColor,
+                  inactiveThumbColor: AppColors.softWhite,
+                  inactiveTrackColor: AppColors.softWhite,
+                  value: notificationsEnabled,
+                  onChanged: (val) async {
+                    setState(() {
+                      notificationsEnabled = val;
+                    });
+
+                    try {
+                      final response =
+                          await ApiHelper.put(ApiEndPoints.enableNotification, {
+                        "enabledForMissedSupplements": notificationsEnabled,
+                        "customReminderSounds": true,
+                        "reminderFrequency": "twice"
+                      });
+                      if (response.success) {
+                        CustomToast.success("Status Updated  sucessfuly");
+                      }
+                    } catch (e) {
+                      log(e.toString());
+                    }
+                  }),
             ),
-            buildRow(
-              "Snooze Option for Missed Supplements",
-              Switch(
-                activeColor: AppColors.appColor,
-                inactiveThumbColor: AppColors.softWhite,
-                inactiveTrackColor: AppColors.textColor.withOpacity(0.6),
-                value: snoozeEnabled,
-                onChanged: (val) {
-                  setState(() {
-                    snoozeEnabled = val;
-                  });
-                },
-              ),
-            ),
+            // build Row(
+            //   "Snooze Option for Missed Supplements",
+            //   Switch(
+            //     activeColor: AppColors.appColor,
+            //     inactiveThumbColor: AppColors.softWhite,
+            //     inactiveTrackColor: AppColors.textColor.withOpacity(0.6),
+            //     value: snoozeEnabled,
+            //     onChanged: (val) {
+            //       setState(() {
+            //         snoozeEnabled = val;
+            //       });
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -89,7 +107,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: TextWidget(title: title, textColor: AppColors.textColor)),
+          TextWidget(title: title, textColor: AppColors.textColor),
           toggleSwitch,
         ],
       ),

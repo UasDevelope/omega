@@ -10,7 +10,7 @@ import '../source/local.dart';
 
 class ApiHelper {
   static const String baseUrl =
-      "https://apex-biotics-supplement-be.vercel.app/api";
+      "http://13.49.225.69:5000/api";
   static Future<Map<String, String>> getHeaders() async {
     var token = await LocalStorage.getString(LocalStorage.tokenKey);
     log(token.toString());

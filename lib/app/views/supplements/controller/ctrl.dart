@@ -14,7 +14,7 @@ class AddSupplementsController extends GetxController {
   final timeController = TextEditingController();
   final dosageController = TextEditingController(); // Added dosage controller
   final dayController = TextEditingController();
-
+  final isloading=false.obs;
   final daysOfWeek = <String>[
     'Sunday',
     'Monday',
@@ -339,11 +339,12 @@ class AddSupplementsController extends GetxController {
   }
 
   void saveSupplementData() async {
+    isloading.value=true;
     if (formKey.currentState?.validate() ?? false) {
-      final scheduledDateTime = getNextOccurrenceOfWeekday(
-        selectedWeekday: selectedDayIndex.value,
-        time: timeController.text.trim(),
-      );
+      // final scheduledDateTime = getNextOccurrenceOfWeekday(
+      //   selectedWeekday: selectedDayIndex.value,
+      //   time: timeController.text.trim(),
+      // );
       final formattedTime = convertTo24HourFormat(timeController.text.trim());
 
       final Map<String, dynamic> data = {
@@ -382,7 +383,7 @@ class AddSupplementsController extends GetxController {
           Get.find<HomeController>().fetchSupplements();
           Get.find<HomeController>().weeklySummry();
 
-          CustomToast.success("Supplement added successfully");
+          // CustomToast.success("Supplement added successfully");
           Get.back();
         } else {
           CustomToast.error("Failed to add supplement");
@@ -390,6 +391,8 @@ class AddSupplementsController extends GetxController {
       } catch (e) {
         CustomToast.error("Error: ${e.toString()}");
         log(e.toString());
+      }finally{
+        isloading.value=false;
       }
     }
   }

@@ -24,26 +24,7 @@ class ProfileController extends GetxController {
   final Rxn<File> profileImage = Rxn<File>(); // new reactive image file
 
   ProfileController({required this.profileServices});
-  Future<void> logout() async {
-    try {
-      isLoading.value = true;
 
-      // Clear the stored token or any other relevant data
-      await LocalStorage.deleteValue(
-          LocalStorage.tokenKey); // Assuming you are using LocalStorage
-
-      // Optionally, show a success message
-      CustomToast.success("Logged out successfully");
-
-      // Navigate to the login screen
-      Get.offNamed(
-          Routes.login); // Or any route you want to navigate to after logout
-    } catch (e) {
-      CustomToast.error("Error logging out: $e");
-    } finally {
-      isLoading.value = false;
-    }
-  }
 
   void pickImage() async {
     final picker = ImagePicker();

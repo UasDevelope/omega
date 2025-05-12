@@ -4,10 +4,12 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:omega/app/views/profile/updatee.dart';
 
 import '../../controllers/profile_ctrl.dart';
+import '../../data/source/local.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/constants/assets.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/helpers/app_size.dart';
+import '../../utils/helpers/toast.dart';
 import '../../widgets/container/custom_app_bar.dart';
 import '../../widgets/container/custom_container.dart';
 import '../../widgets/container/custom_supplement_container.dart';
@@ -144,7 +146,15 @@ class ProfileScreen extends GetView<ProfileController> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    onPressed: controller.logout,
+                    onPressed: () async {
+                      await LocalStorage.deleteValue(LocalStorage
+                          .tokenKey); // Assuming you are using LocalStorage
+                      // Optionally, show a szuccess message
+                      CustomToast.success("Logged out successfully");
+
+                      // Navigate to the login screen
+                      Get.offNamed(Routes.login);
+                    },
                     icon: Icon(Icons.exit_to_app, size: 20),
                     label: Text(
                       'Log Out',
