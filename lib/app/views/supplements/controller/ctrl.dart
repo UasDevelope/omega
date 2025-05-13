@@ -14,7 +14,7 @@ class AddSupplementsController extends GetxController {
   final timeController = TextEditingController();
   final dosageController = TextEditingController(); // Added dosage controller
   final dayController = TextEditingController();
-  final isloading=false.obs;
+  final isloading = false.obs;
   final daysOfWeek = <String>[
     'Sunday',
     'Monday',
@@ -339,7 +339,7 @@ class AddSupplementsController extends GetxController {
   }
 
   void saveSupplementData() async {
-    isloading.value=true;
+    isloading.value = true;
     if (formKey.currentState?.validate() ?? false) {
       // final scheduledDateTime = getNextOccurrenceOfWeekday(
       //   selectedWeekday: selectedDayIndex.value,
@@ -391,8 +391,8 @@ class AddSupplementsController extends GetxController {
       } catch (e) {
         CustomToast.error("Error: ${e.toString()}");
         log(e.toString());
-      }finally{
-        isloading.value=false;
+      } finally {
+        isloading.value = false;
       }
     }
   }

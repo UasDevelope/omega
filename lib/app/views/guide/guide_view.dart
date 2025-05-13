@@ -278,12 +278,13 @@ class GuideView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+
+                    borderRadius: BorderRadius.circular(2),
                     child: SizedBox(
                       width: double.infinity,
                       child: Image.asset(
                         guide.imageUrl,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
