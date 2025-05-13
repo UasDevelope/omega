@@ -11,6 +11,19 @@ class HelpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> openEmailInBrowser(String email) async {
+      final Uri gmailUri = Uri.parse(
+        'https://mail.google.com/mail/?view=cm&fs=1&to=$email&su=Hello&body=Hi%20there!',
+      );
+
+      if (await canLaunchUrl(gmailUri)) {
+        await launchUrl(gmailUri,
+            mode: LaunchMode.externalApplication); // Forces browser
+      } else {
+        throw 'Could not launch browser';
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -33,27 +46,13 @@ class HelpScreen extends StatelessWidget {
         child: ListView(
           children: [
             // Contact Us Card
-            _buildHelpCard(
-              context,
-              title: 'Contact Us',
-              subtitle: 'Reach out for support or inquiries',
-              email: 'support@apexbiotics.co.uk',
-              icon: Icons.email_outlined,
-                onTap: () async {
-                  final Uri emailUri = Uri(
-                    scheme: 'mailto',
-                    path: 'support@apexbiotics.co.uk',
-                  );
-
-                  if (await canLaunchUrl(emailUri)) {
-                    await launchUrl(emailUri, mode: LaunchMode.externalApplication);
-                  } else {
-                    print('Could not launch email client');
-                    // Optional: Show snackbar or dialog to notify user
-                  }
-                }
-
-            ),
+            _buildHelpCard(context,
+                title: 'Contact Us',
+                subtitle: 'Reach out for support or inquiries',
+                email: 'support@apexbiotics.co.uk',
+                icon: Icons.email_outlined, onTap: () async {
+              openEmailInBrowser("support@apexbiotics.co.uk");
+            }),
             const SizedBox(height: 16),
             // FAQ Card
             _buildHelpCard(
@@ -167,18 +166,19 @@ class HelpScreen extends StatelessWidget {
   }
 }
 
-Future<void> launchEmail(String email, String subject, String body) async {
-  final Uri emailUri = Uri(
-    scheme: 'mailto',
-    path: email,
-    query: 'subject=$subject&body=$body',
+Future<void> launchEmail(String email) async {
+  final Uri gmailUri = Uri.parse(
+    'https://mail.google.com/mail/?view=cm&fs=1&to=$email&su=Hello&body=Hi%20there I am inviting you to join Apex Biotics ! the url of the app Comming soon',
   );
-  if (await canLaunchUrl(emailUri)) {
-    await launchUrl(emailUri, mode: LaunchMode.externalNonBrowserApplication);
+
+  if (await canLaunchUrl(gmailUri)) {
+    await launchUrl(gmailUri,
+        mode: LaunchMode.externalApplication); // Forces browser
   } else {
-    log("Could not launch email client $emailUri");
+    throw 'Could not launch browser';
   }
 }
+
 class FAQScreen extends StatelessWidget {
   const FAQScreen({super.key});
 
@@ -188,25 +188,22 @@ class FAQScreen extends StatelessWidget {
       {
         'question': 'How do i retrieve my password or username?',
         'answer':
-        'On the sign in screen you can request a password reset by email by clicking on the forgot password section.How do i make my diary visible to other users?'
+            'On the sign in screen you can request a password reset by email by clicking on the forgot password section.How do i make my diary visible to other users?'
       },
       {
         'question': 'How does Apex Biotics protect my personal information?',
         'answer':
-        'Your personal information is protected with industry-standard encryption and stored securely. We only collect data necessary for app functionality, such as your profile details and supplement diary entries. You can review our Privacy Policy for more details.'
+            'Your personal information is protected with industry-standard encryption and stored securely. We only collect data necessary for app functionality, such as your profile details and supplement diary entries. You can review our Privacy Policy for more details.'
       },
       {
         'question': 'How do i set up push notifications?',
         'answer':
-        'Click on the settings tab and click turn on or off push notifications.'
+            'Click on the settings tab and click turn on or off push notifications.'
       },
-
-
-
       {
         'question': 'How do i add a photo to my profile?',
         'answer':
-        'Click on the settings tab, then click on profile then click add profile photo.'
+            'Click on the settings tab, then click on profile then click add profile photo.'
       },
       {
         'question': 'How does Apex Biotics protect my personal information?',

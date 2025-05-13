@@ -74,7 +74,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         "reminderFrequency": "twice"
                       });
                       if (response.success) {
-                        CustomToast.success("Status Updated  sucessfuly");
+                        // CustomToast.success("Status Updated  sucessfuly");
                       }
                     } catch (e) {
                       log(e.toString());

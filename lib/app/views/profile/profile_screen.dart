@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:omega/app/views/profile/updatee.dart';
+import 'package:omega/app/views/progress/progress_view.dart';
 
 import '../../controllers/profile_ctrl.dart';
 import '../../data/source/local.dart';
@@ -98,6 +99,14 @@ class ProfileScreen extends GetView<ProfileController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         InkWell(
+                          onTap: () => Get.to(UpdateProfileScreen()),
+                          child: buildRowIcon(
+                            title: "Account information",
+                            textColor: AppColors.textColor,
+                            assetName: AppAssets.person,
+                          ),
+                        ),
+                        InkWell(
                           onTap: () => Get.toNamed(Routes.notification),
                           child: buildRowIcon(
                             title: "Notifications",
@@ -113,14 +122,16 @@ class ProfileScreen extends GetView<ProfileController> {
                             assetName: AppAssets.support,
                           ),
                         ),
-                        // InkWell(
-                        //   onTap: () {},
-                        //   child: buildRowIcon(
-                        //     title: "Progress",
-                        //     textColor: AppColors.textColor,
-                        //     assetName: AppAssets.progress,
-                        //   ),
-                        // ),
+                        InkWell(
+                          onTap: () {
+                            Get.to(ProgressView());
+                          },
+                          child: buildRowIcon(
+                            title: "Progress",
+                            textColor: AppColors.textColor,
+                            assetName: AppAssets.progress,
+                          ),
+                        ),
                         InkWell(
                           onTap: () => Get.to(ShareDiaryScreen()),
                           child: buildRowIcon(

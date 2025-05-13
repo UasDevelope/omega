@@ -76,7 +76,7 @@ class HomeController extends GetxController {
       var response = await supplementServices.updateStatus(id, data);
       if (response.success) {
         weeklySummry();
-        CustomToast.success("Status updated to $status");
+        // CustomToast.success("Status updated to $status");
       }
     } catch (e) {
       CustomToast.error("Error $e");

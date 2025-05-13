@@ -26,7 +26,7 @@ class FriendsController extends GetxController
     if (input.isNotEmpty) {
       if (!isShareTab) {
         launchEmail(
-            input, "Invite friends", "I am inviting you to join Apex Biotics");
+            input,);
         // FriendsService.shareDiary({"email": input}).then((value) {});
       } else {
         FriendsService.inviteFriends({"email": input}).then((value) {});
