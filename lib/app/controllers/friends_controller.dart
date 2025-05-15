@@ -37,9 +37,8 @@ class FriendsController extends GetxController
       Get.snackbar("Error", "Please enter a valid email or username");
       return;
     }
-
     if (isShareTab) {
-      FriendsService.shareDiary({"email": input}).then((value) {
+      FriendsService.shareDiary({"friendEmail": input}).then((value) {
         Get.snackbar("Success", "Diary shared with $input");
       });
     } else {
@@ -48,7 +47,14 @@ class FriendsController extends GetxController
       final Uri emailUri = Uri(
         scheme: 'mailto',
         path: input,
+        queryParameters: {
+          'subject': 'Join me on ApexBiotics!',
+          'body': '''Hey!
+
+Join me on ApexBiotics and add your supplements to your daily diary. Monitoring your progress has never been easier.''',
+        },
       );
+
       await launchUrl(emailUri, mode: LaunchMode.externalApplication);
     }
   }
