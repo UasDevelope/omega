@@ -35,7 +35,7 @@ class ShareDiaryScreen extends GetView<FriendsController> {
               fillColor: Colors.grey.shade100,
               hintStyle: TextStyle(color: Colors.grey.shade500),
               contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: Colors.transparent),
@@ -75,42 +75,39 @@ class ShareDiaryScreen extends GetView<FriendsController> {
     return GetBuilder<FriendsController>(
       init: FriendsController(),
       builder: (_) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            leading: const BackButton(color: Colors.black),
+        return DefaultTabController(
+          length: 2,
+          child: Scaffold(
             backgroundColor: Colors.white,
-            elevation: 0,
-            title: const Text(
-              "Friends",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-            ),
-            centerTitle: true,
-          ),
-          body: Column(
-            children: [
-              TabBar(
+            appBar: AppBar(
+              leading: const BackButton(color: Colors.black),
+              backgroundColor: Colors.white,
+              elevation: 0,
+              title: const Text(
+                "Friends",
+                style: TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.w600),
+              ),
+              centerTitle: true,
+              bottom: TabBar(
                 controller: controller.tabController,
                 labelColor: AppColors.appColor,
                 unselectedLabelColor: Colors.grey,
                 indicatorColor: AppColors.appColor,
                 labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                 tabs: const [
-                  // Tab(text: "Share Diary"),
+                  Tab(text: "Share Diary"),
                   Tab(text: "Invite Friends"),
                 ],
               ),
-              Expanded(
-                child: TabBarView(
-                  controller: controller.tabController,
-                  children: [
-                    buildTabContent(isShareTab: false),
-                    // buildTabContent(isShareTab: false),
-                  ],
-                ),
-              ),
-            ],
+            ),
+            body: TabBarView(
+              controller: controller.tabController,
+              children: [
+                buildTabContent(isShareTab: true),
+                buildTabContent(isShareTab: false),
+              ],
+            ),
           ),
         );
       },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omega/app/services/friends_service.dart';
 import 'package:omega/app/views/HelpScreen/HelpScreen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FriendsController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -10,7 +11,16 @@ class FriendsController extends GetxController
 
   @override
   void onInit() {
-    tabController = TabController(length: 1, vsync: this);
+    int initialTabIndex = 0;
+    if (Get.arguments != null && Get.arguments is int) {
+      final arg = Get.arguments as int;
+      if (arg >= 0 && arg < 2) {
+        initialTabIndex = arg;
+      }
+    }
+
+    tabController =
+        TabController(length: 2, vsync: this, initialIndex: initialTabIndex);
     super.onInit();
   }
 
@@ -21,23 +31,25 @@ class FriendsController extends GetxController
     super.onClose();
   }
 
-  void handleSubmit(bool isShareTab) {
+  Future<void> handleSubmit(bool isShareTab) async {
     final input = inputController.text.trim();
-    if (input.isNotEmpty) {
-      if (!isShareTab) {
-        launchEmail(
-            input,);
-        // FriendsService.shareDiary({"email": input}).then((value) {});
-      } else {
-        FriendsService.inviteFriends({"email": input}).then((value) {});
-      }
-      // Handle the action
-      // Get.snackbar(
-      //   "Success",
-      //   isShareTab ? "Diary shared with $input" : "Invitation sent to $input",
-      // );
-    } else {
+    if (input.isEmpty) {
       Get.snackbar("Error", "Please enter a valid email or username");
+      return;
+    }
+
+    if (isShareTab) {
+      FriendsService.shareDiary({"email": input}).then((value) {
+        Get.snackbar("Success", "Diary shared with $input");
+      });
+    } else {
+      // Invite Friend → open email client
+      // launchEmail(input);
+      final Uri emailUri = Uri(
+        scheme: 'mailto',
+        path: input,
+      );
+      await launchUrl(emailUri, mode: LaunchMode.externalApplication);
     }
   }
 }

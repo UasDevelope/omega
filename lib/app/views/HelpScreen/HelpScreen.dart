@@ -51,7 +51,14 @@ class HelpScreen extends StatelessWidget {
                 subtitle: 'Reach out for support or inquiries',
                 email: 'support@apexbiotics.co.uk',
                 icon: Icons.email_outlined, onTap: () async {
-              openEmailInBrowser("support@apexbiotics.co.uk");
+                  final Uri emailUri = Uri(
+                    scheme: 'mailto',
+                    path: 'support@apexbiotics.co.uk',
+                  );
+
+                  await launchUrl(emailUri,
+                      mode: LaunchMode.externalApplication);
+              // openEmailInBrowser("");
             }),
             const SizedBox(height: 16),
             // FAQ Card
@@ -168,7 +175,7 @@ class HelpScreen extends StatelessWidget {
 
 Future<void> launchEmail(String email) async {
   final Uri gmailUri = Uri.parse(
-    'https://mail.google.com/mail/?view=cm&fs=1&to=$email&su=Hello&body=Hi%20there I am inviting you to join Apex Biotics ! the url of the app Comming soon',
+    'https://mail.google.com/mail/?view=cm&fs=1&to=$email&su=Hey!&body=Hi%20 Join me on ApexBiotics and add your supplements to your daily diary. Monitoring your progress has never been easier!',
   );
 
   if (await canLaunchUrl(gmailUri)) {

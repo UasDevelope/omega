@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omega/app/views/profile/profile_screen.dart';
@@ -11,10 +10,8 @@ import '../utils/constants/strings.dart';
 import 'calender/calender_view.dart';
 import 'guide/guide_view.dart';
 import 'home/home_view.dart';
-
 class BottomNavView extends StatelessWidget {
   final controller = Get.find<BottomNavController>();
-
   final List<Widget> pages = [
     HomeView(),
     CalenderView(),
@@ -22,7 +19,6 @@ class BottomNavView extends StatelessWidget {
     GuideView(),
     ProfileScreen()
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,19 +67,13 @@ class BottomNavView extends StatelessWidget {
   ) {
     return BottomNavigationBarItem(
       icon: Obx(
-        () => AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          padding: EdgeInsets.all(
-            controller.selectedIndex.value == index ? 5 : 0,
-          ),
-          child: Image.asset(
-            iconPath,
-            width: controller.selectedIndex.value == index ? 32 : 24,
-            height: controller.selectedIndex.value == index ? 32 : 24,
-            color: controller.selectedIndex.value == index
-                ? AppColors.appColor
-                : Colors.grey,
-          ),
+        () => Image.asset(
+          iconPath,
+          width: 24, // Keep constant size
+          height: 24,
+          color: controller.selectedIndex.value == index
+              ? AppColors.appColor
+              : Colors.grey,
         ),
       ),
       label: label,

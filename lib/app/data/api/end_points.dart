@@ -4,8 +4,8 @@ class ApiEndPoints {
   static get verifyOtp => "/auth/verify-otp";
   static get updateDeviceToken => "/auth/updateDeviceToken";
   static get supplements => "/supplements";
-  static get shareDiary => "/friends/share-diary";
-  static get invite => "/friends/invite";
+  static get shareDiary => "/supplements/share";
+  static get invite => "/shareDiary";
   static String updateStatus(String id) => "/supplements/$id/status";
   static String deleteSupplement(String id) => "/supplements/$id";
   static get today => "/supplements/supplements-today";
