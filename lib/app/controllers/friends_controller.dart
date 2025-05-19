@@ -44,18 +44,17 @@ class FriendsController extends GetxController
     } else {
       // Invite Friend → open email client
       // launchEmail(input);
-      final Uri emailUri = Uri(
-        scheme: 'mailto',
-        path: input,
-        queryParameters: {
-          'subject': 'Join me on ApexBiotics!',
-          'body': '''Hey!
+      final String subject = Uri.encodeComponent('Join me on ApexBiotics!');
+      final String body = Uri.encodeComponent(
+        '''Hey!
 
 Join me on ApexBiotics and add your supplements to your daily diary. Monitoring your progress has never been easier.''',
-        },
       );
 
+      final Uri emailUri = Uri.parse('mailto:$input?subject=$subject&body=$body');
+
       await launchUrl(emailUri, mode: LaunchMode.externalApplication);
+
     }
   }
 }

@@ -20,7 +20,7 @@ class CustomContainer extends StatelessWidget {
       onTap: onTap,
       splashColor: Colors.transparent,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(8),

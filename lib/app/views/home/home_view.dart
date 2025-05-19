@@ -82,10 +82,11 @@ class HomeView extends StatelessWidget {
       final user = controller.user.value;
 
       return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // Avatar on the left
           CircleAvatar(
-            backgroundColor: Color(0xFFEFEFEF),
+            backgroundColor: const Color(0xFFEFEFEF),
             backgroundImage: user != null && user.profilePicture.isNotEmpty
                 ? NetworkImage(user.profilePicture)
                 : AssetImage(AppAssets.noProfile) as ImageProvider,
@@ -93,9 +94,8 @@ class HomeView extends StatelessWidget {
           ),
           SizedBox(width: AppSize.h2),
 
-          // Make text ellipsize
+          // Greeting text next to avatar
           Flexible(
-            flex: 3,
             child: TextWidget(
               title: user != null && user.name.isNotEmpty
                   ? "Hello, ${user.name}!"
@@ -108,19 +108,23 @@ class HomeView extends StatelessWidget {
           ),
 
           Spacer(),
+
+          // Calendar icon on right
           InkWell(
-              onTap: () {
-                final controller = Get.find<BottomNavController>();
-                controller.changeTab(1);
-              },
-              child: CustomSvgIcon(assetName: AppAssets.calender1)),
+            onTap: () {
+              final controller = Get.find<BottomNavController>();
+              controller.changeTab(1);
+            },
+            child: CustomSvgIcon(assetName: AppAssets.calender1),
+          ),
           SizedBox(width: AppSize.h2),
+          // Notification icon on right
           InkWell(
-              onTap: () async {
-                Get.toNamed(Routes.notification);
-                // await NotificationUtil().cancelNotification(1001);
-              },
-              child: CustomSvgIcon(assetName: AppAssets.notification)),
+            onTap: () async {
+              Get.toNamed(Routes.notification);
+            },
+            child: CustomSvgIcon(assetName: AppAssets.notification),
+          ),
         ],
       );
     });

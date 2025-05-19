@@ -265,7 +265,7 @@ class GuideView extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(title: "Guides"),
       body: Padding(
-        padding: const EdgeInsets.all(14.0),
+        padding: const EdgeInsets.all(20.0),
         child: ListView.separated(
           itemCount: guides.length,
           itemBuilder: (context, index) {
@@ -278,13 +278,12 @@ class GuideView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-
                     borderRadius: BorderRadius.circular(2),
                     child: SizedBox(
                       width: double.infinity,
                       child: Image.asset(
                         guide.imageUrl,
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
