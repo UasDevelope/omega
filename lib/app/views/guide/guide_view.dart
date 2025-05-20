@@ -265,7 +265,7 @@ class GuideView extends StatelessWidget {
     return Scaffold(
       appBar: customAppBar(title: "Guides"),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(14.0),
         child: ListView.separated(
           itemCount: guides.length,
           itemBuilder: (context, index) {

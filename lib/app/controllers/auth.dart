@@ -37,12 +37,12 @@ class authController extends GetxController {
       var response = await userService.createUser(data);
       if (response.success) {
         Get.toNamed(Routes.otp);
-        CustomToast.success("Successfully created user");
+        // CustomToast.success("Successfully created user");
       } else {
-        CustomToast.error(response.message);
+        // CustomToast.error(response.message);
       }
     } catch (e) {
-      CustomToast.error("Error:$e");
+      // CustomToast.error("Error:$e");
       log("Error$e");
     } finally {
       isLoading.value = false;
@@ -76,14 +76,14 @@ class authController extends GetxController {
         if (response.success) {
           LocalStorage.saveString(
               LocalStorage.tokenKey, response.data["data"]["token"]);
-          CustomToast.success("Login successfully");
+          // CustomToast.success("Login successfully");
           Get.offAllNamed(Routes.BOTTOMNAV); // or Routes.BOTTOMNAV
         } else {
           Get.toNamed(Routes.otp);
         }
       } catch (e) {
         log(e.toString());
-        CustomToast.error("$e");
+        // CustomToast.error("$e");
       } finally {
         isLoading.value = false;
       }
@@ -97,14 +97,14 @@ class authController extends GetxController {
       var response =
           await userService.verifyOtp(otpController.text, emailController.text);
       if (response.success) {
-        CustomToast.success("Successfully Verified");
+        // CustomToast.success("Successfully Verified");
         Get.offNamed(Routes.login);
       } else {
-        CustomToast.error("Invalid otp");
+        // CustomToast.error("Invalid otp");
       }
     } catch (e) {
       log(e.toString());
-      CustomToast.error("$e");
+      // CustomToast.error("$e");
     } finally {
       isLoading.value = false;
     }

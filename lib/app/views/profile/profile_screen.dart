@@ -161,7 +161,7 @@ class ProfileScreen extends GetView<ProfileController> {
                       await LocalStorage.deleteValue(LocalStorage
                           .tokenKey); // Assuming you are using LocalStorage
                       // Optionally, show a szuccess message
-                      CustomToast.success("Logged out successfully");
+                      // CustomToast.success("Logged out successfully");
 
                       // Navigate to the login screen
                       Get.offNamed(Routes.login);

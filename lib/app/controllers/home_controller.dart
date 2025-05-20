@@ -79,7 +79,7 @@ class HomeController extends GetxController {
         // CustomToast.success("Status updated to $status");
       }
     } catch (e) {
-      CustomToast.error("Error $e");
+      // CustomToast.error("Error $e");
       log(e.toString());
     }
   }
@@ -89,7 +89,7 @@ class HomeController extends GetxController {
     if (response.success) {
       // CustomToast.success("Supplement deleted");
     } else {
-      CustomToast.error("Error ${response.message}");
+      // CustomToast.error("Error ${response.message}");
     }
     fetchAllSupplements();
     fetchSupplements();
@@ -103,12 +103,12 @@ class HomeController extends GetxController {
       if (response.success && response.data != null) {
         allSuplements.value = response.data!;
       } else {
-        CustomToast.error("Failed to fetch supplements: ${response.message}");
+        // CustomToast.error("Failed to fetch supplements: ${response.message}");
         log("Failed error ${response.message}");
       }
     } catch (e) {
       log("Error fetching supplements here 1: $e");
-      CustomToast.error("Something went wrong");
+      // CustomToast.error("Something went wrong");
     }
   }
 
@@ -119,12 +119,12 @@ class HomeController extends GetxController {
       if (response.success && response.data != null) {
         supplements.value = response.data!;
       } else {
-        CustomToast.error("Failed to fetch supplements: ${response.message}");
+        // CustomToast.error("Failed to fetch supplements: ${response.message}");
         log("Failed error ${response.message}");
       }
     } catch (e) {
       log("Error fetching supplements here2: $e");
-      CustomToast.error("Something went wrong");
+      // CustomToast.error("Something went wrong");
     }
   }
 
@@ -135,12 +135,12 @@ class HomeController extends GetxController {
       if (response.success && response.data != null) {
         dailySupplements.value = response.data!;
       } else {
-        CustomToast.error("Failed to fetch supplements: ${response.message}");
+        // CustomToast.error("Failed to fetch supplements: ${response.message}");
         log("Failed error ${response.message} ${response.data} ${response.success}");
       }
     } catch (e) {
       log("Error fetching supplements here3: $e");
-      CustomToast.error("Something went wrong");
+      // CustomToast.error("Something went wrong");
     }
   }
 }

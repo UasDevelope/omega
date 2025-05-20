@@ -107,8 +107,9 @@ class HomeView extends StatelessWidget {
             ),
           ),
 
-          Spacer(),
-
+          SizedBox(
+            width: 300,
+          ),
           // Calendar icon on right
           InkWell(
             onTap: () {

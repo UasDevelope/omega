@@ -386,10 +386,10 @@ class AddSupplementsController extends GetxController {
           // CustomToast.success("Supplement added successfully");
           Get.back();
         } else {
-          CustomToast.error("Failed to add supplement");
+          // CustomToast.error("Failed to add supplement");
         }
       } catch (e) {
-        CustomToast.error("Error: ${e.toString()}");
+        // CustomToast.error("Error: ${e.toString()}");
         log(e.toString());
       } finally {
         isloading.value = false;

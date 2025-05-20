@@ -29,40 +29,40 @@ class SplashScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  RichTextWidget(
-                    textAlign: TextAlign.center,
-                    textSpanList: [
-                      RichTextSpanModel(
-                        text: "Welcome to ",
-                        fontSize: 32,
-                      ),
-                      RichTextSpanModel(
-                        text: "APEX",
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.appColor,
-                      ),
-                      RichTextSpanModel(text: "\n"),
-                      RichTextSpanModel(
-                        text: "BIOTICS",
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.appColor,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: AppSize.h2),
-                  TextWidget(
-                    title: "Elevate your future",
-                    fontSize: 16,
-                    textColor: Colors.grey,
-                    textAlign: TextAlign.center,
-                    fontFamily: FontSource.poppins,
-                  ),
-                  SizedBox(height: AppSize.getHeight(10)),
-
-                  // Logo
-                  Image.asset(AppAssets.xLogo),
+                  // RichTextWidget(
+                  //   textAlign: TextAlign.center,
+                  //   textSpanList: [
+                  //     RichTextSpanModel(
+                  //       text: "Welcome to ",
+                  //       fontSize: 32,
+                  //     ),
+                  //     RichTextSpanModel(
+                  //       text: "APEX",
+                  //       fontSize: 40,
+                  //       fontWeight: FontWeight.bold,
+                  //       color: AppColors.appColor,
+                  //     ),
+                  //     RichTextSpanModel(text: "\n"),
+                  //     RichTextSpanModel(
+                  //       text: "BIOTICS",
+                  //       fontSize: 40,
+                  //       fontWeight: FontWeight.bold,
+                  //       color: AppColors.appColor,
+                  //     ),
+                  //   ],
+                  // ),
+                  // SizedBox(height: AppSize.h2),
+                  // TextWidget(
+                  //   title: "Elevate your future",
+                  //   fontSize: 16,
+                  //   textColor: Colors.grey,
+                  //   textAlign: TextAlign.center,
+                  //   fontFamily: FontSource.poppins,
+                  // ),
+                  // SizedBox(height: AppSize.getHeight(10)),
+                  //
+                  // // Logo
+                  Image.asset(AppAssets.xLogo,height:300,width:300,),
                 ],
               ),
             ),

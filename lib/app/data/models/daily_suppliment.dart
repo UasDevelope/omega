@@ -26,6 +26,7 @@ class DailyDataContainer {
 
   DailyDataContainer({
     required this.dailyData,
+
     required this.weekRange,
   });
 
