@@ -19,7 +19,7 @@ class BottomNavView extends StatelessWidget {
     CalenderView(),
     SupplementsView(),
     GuideView(),
-    ProfileScreen()
+    ProfileScreen(),
   ];
 
   @override
@@ -48,14 +48,8 @@ class BottomNavView extends StatelessWidget {
               selectedItemColor: AppColors.appColor,
               unselectedItemColor: Colors.grey,
               showSelectedLabels: true,
-              showUnselectedLabels: true, // ensure text is always visible
-              items: [
-                _customNavItem(AppAssets.dashboard, AppStrings.Dashboard, 0),
-                _customNavItem(AppAssets.calender, AppStrings.Calendar, 1),
-                _customNavItem(AppAssets.supplement, AppStrings.Supplement, 2),
-                _customNavItem(AppAssets.guide, AppStrings.Guide, 3),
-                _customNavItem(AppAssets.setting, AppStrings.Setting, 4),
-              ],
+              showUnselectedLabels: true,
+              items: List.generate(5, (index) => _customNavItem(index)),
             ),
           ),
         ),
@@ -63,17 +57,40 @@ class BottomNavView extends StatelessWidget {
     );
   }
 
-  BottomNavigationBarItem _customNavItem(String iconPath, String label, int index) {
-    final isSelected = controller.selectedIndex.value == index;
+  BottomNavigationBarItem _customNavItem(int index) {
+    final iconPaths = [
+      AppAssets.dashboard,
+      AppAssets.calender,
+      AppAssets.supplement,
+      AppAssets.guide,
+      AppAssets.setting,
+    ];
+    final labels = [
+      AppStrings.Dashboard,
+      AppStrings.Calendar,
+      AppStrings.Supplement,
+      AppStrings.Guide,
+      AppStrings.Setting,
+    ];
 
     return BottomNavigationBarItem(
-      icon: Image.asset(
-        iconPath,
-        width: 24,
-        height: 24,
-        color: isSelected ? AppColors.appColor : Colors.grey,
-      ),
-      label: label,
+      icon: Obx(() {
+        final isSelected = controller.selectedIndex.value == index;
+        return Container(
+          padding: EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.appColor.withOpacity(0.1) : Colors.transparent,
+            shape: BoxShape.circle,
+          ),
+          child: Image.asset(
+            iconPaths[index],
+            width: 24,
+            height: 24,
+            color: isSelected ? AppColors.appColor : Colors.grey,
+          ),
+        );
+      }),
+      label: labels[index],
     );
   }
 }
