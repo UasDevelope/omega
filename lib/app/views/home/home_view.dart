@@ -15,7 +15,7 @@ import '../../widgets/text/text_widget.dart';
 
 class HomeView extends StatelessWidget {
   final HomeController controller =
-  Get.put(HomeController(supplementServices: SupplementServices()));
+      Get.put(HomeController(supplementServices: SupplementServices()));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +107,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 280,
+            width: 250,
           ),
           // Calendar icon on right
           InkWell(
