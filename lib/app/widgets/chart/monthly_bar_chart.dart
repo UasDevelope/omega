@@ -22,7 +22,7 @@ class WeeklyBarChart extends StatelessWidget {
     return Obx(() {
       final weeklyData =
           controller.dailySupplements.value?.data.dailyData ?? [];
-    log("weeklyData:${weeklyData.length}");
+      log("weeklyData:${weeklyData.length}");
       return Container(
         height: AppSize.getHeight(30),
         padding: const EdgeInsets.all(16),
@@ -52,7 +52,7 @@ class WeeklyBarChart extends StatelessWidget {
                 ),
                 Text(
                   "Weekly Supplements",
-                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
               ],
             ),

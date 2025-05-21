@@ -10,5 +10,5 @@ class AppStrings {
   static get Calendar => "Calendar";
   static get Supplement => "Supplement";
   static get Guide => "Guide";
-  static get Setting => "Setting";
+  static get Setting => "Settings";
 }
