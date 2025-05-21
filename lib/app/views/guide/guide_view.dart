@@ -281,6 +281,7 @@ class GuideView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(2),
                     child: SizedBox(
                       width: double.infinity,
+                      height: 180, // ✅ fixed height for all images
                       child: Image.asset(
                         guide.imageUrl,
                         fit: BoxFit.cover,

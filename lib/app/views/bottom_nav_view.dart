@@ -10,6 +10,8 @@ import '../utils/constants/strings.dart';
 import 'calender/calender_view.dart';
 import 'guide/guide_view.dart';
 import 'home/home_view.dart';
+
+
 class BottomNavView extends StatelessWidget {
   final controller = Get.find<BottomNavController>();
   final List<Widget> pages = [
@@ -19,17 +21,18 @@ class BottomNavView extends StatelessWidget {
     GuideView(),
     ProfileScreen()
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() => pages[controller.selectedIndex.value]),
       bottomNavigationBar: Obx(
-        () => Container(
+            () => Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
+                color: Colors.black.withOpacity(0.1),
                 blurRadius: 10,
                 spreadRadius: 2,
               ),
@@ -45,7 +48,7 @@ class BottomNavView extends StatelessWidget {
               selectedItemColor: AppColors.appColor,
               unselectedItemColor: Colors.grey,
               showSelectedLabels: true,
-              showUnselectedLabels: false,
+              showUnselectedLabels: true, // ensure text is always visible
               items: [
                 _customNavItem(AppAssets.dashboard, AppStrings.Dashboard, 0),
                 _customNavItem(AppAssets.calender, AppStrings.Calendar, 1),
@@ -60,21 +63,15 @@ class BottomNavView extends StatelessWidget {
     );
   }
 
-  BottomNavigationBarItem _customNavItem(
-    String iconPath,
-    String label,
-    int index,
-  ) {
+  BottomNavigationBarItem _customNavItem(String iconPath, String label, int index) {
+    final isSelected = controller.selectedIndex.value == index;
+
     return BottomNavigationBarItem(
-      icon: Obx(
-        () => Image.asset(
-          iconPath,
-          width: 24, // Keep constant size
-          height: 24,
-          color: controller.selectedIndex.value == index
-              ? AppColors.appColor
-              : Colors.grey,
-        ),
+      icon: Image.asset(
+        iconPath,
+        width: 24,
+        height: 24,
+        color: isSelected ? AppColors.appColor : Colors.grey,
       ),
       label: label,
     );

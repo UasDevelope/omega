@@ -34,12 +34,12 @@ class FriendsController extends GetxController
   Future<void> handleSubmit(bool isShareTab) async {
     final input = inputController.text.trim();
     if (input.isEmpty) {
-      Get.snackbar("Error", "Please enter a valid email or username");
+      // Get.snackbar("Error", "Please enter a valid email or username");
       return;
     }
     if (isShareTab) {
       FriendsService.shareDiary({"friendEmail": input}).then((value) {
-        Get.snackbar("Success", "Diary shared with $input");
+        // Get.snackbar("Success", "Diary shared with $input");
       });
     } else {
       // Invite Friend → open email client

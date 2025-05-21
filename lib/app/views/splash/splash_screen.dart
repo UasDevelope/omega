@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../controllers/splash_controller.dart';
-import '../../data/source/font_source.dart';
 import '../../utils/constants/assets.dart';
 import '../../utils/constants/color.dart';
-import '../../utils/helpers/app_size.dart';
 import '../../utils/helpers/notification_service.dart';
-import '../../widgets/text/rich_text_widget.dart';
-import '../../widgets/text/text_widget.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     Get.put(SplashController());
     NotificationUtil().allTasks(context);
-
     return Scaffold(
+      backgroundColor: AppColors.appColor,
       body: Stack(
         children: [
           Padding(
@@ -62,7 +56,11 @@ class SplashScreen extends StatelessWidget {
                   // SizedBox(height: AppSize.getHeight(10)),
                   //
                   // // Logo
-                  Image.asset(AppAssets.xLogo,height:300,width:300,),
+                  Image.asset(
+                    AppAssets.xLogo,
+                    height: 300,
+                    width: 300,
+                  ),
                 ],
               ),
             ),

@@ -25,7 +25,6 @@ class ProfileController extends GetxController {
 
   ProfileController({required this.profileServices});
 
-
   void pickImage() async {
     final picker = ImagePicker();
     final picked = await picker.pickImage(source: ImageSource.gallery);
@@ -70,12 +69,12 @@ class ProfileController extends GetxController {
 
         log("✅ Profile fetched: ${profileData.name}");
       } else {
-        Get.snackbar(
-            "Error", profileResponse.message ?? "Failed to load profile.");
+        // Get.snackbar(
+        //     "Error", profileResponse.message ?? "Failed to load profile.");
       }
     } catch (e) {
       log("🚨 Error: $e");
-      Get.snackbar("Error", "Failed to load profile.");
+      // Get.snackbar("Error", "Failed to load profile.");
     } finally {
       isLoading.value = false;
     }
@@ -95,13 +94,13 @@ class ProfileController extends GetxController {
         nameController.text = response.data!.name;
         fetchProfile();
 
-        Get.snackbar("Success", "Profile updated!");
+        // Get.snackbar("Success", "Profile updated!");
       } else {
-        Get.snackbar("Error", response.message ?? "Failed to update profile.");
+        // Get.snackbar("Error", response.message ?? "Failed to update profile.");
       }
     } catch (e) {
       log("🚨 Error during profile update: $e");
-      Get.snackbar("Error", "Something went wrong.");
+      // Get.snackbar("Error", "Something went wrong.");
     } finally {
       isLoading.value = false;
     }
