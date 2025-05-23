@@ -9,11 +9,10 @@ import 'package:mime/mime.dart';
 import '../source/local.dart';
 
 class ApiHelper {
-  static const String baseUrl =
-      "http://13.49.225.69:5000/api";
+  static const String baseUrl = "http://13.49.225.69:5000/api";
   static Future<Map<String, String>> getHeaders() async {
     var token = await LocalStorage.getString(LocalStorage.tokenKey);
-    log(token.toString());
+    log("Token is --> ${token.toString()}");
     return {
       "Content-Type": "application/json",
       "Authorization": "Bearer $token",
@@ -23,9 +22,26 @@ class ApiHelper {
   static Future<dynamic> get(String endpoint) async {
     final url = Uri.parse("$baseUrl$endpoint");
     log("GET Request => $url");
-    final headers = await getHeaders();
 
-    var header = getHeaders();
+    var token = await LocalStorage.getString(LocalStorage.tokenKey);
+    if (token == null || token.isEmpty) {
+      log("Token was null. Attempting to retrieve...");
+      // Re-attempt to retrieve token
+      token = await LocalStorage.getString(LocalStorage.tokenKey);
+      if (token == null || token.isEmpty) {
+        log("Token retrieval failed. Aborting GET request.");
+        return ApiResponse<dynamic>(
+          success: false,
+          message: "Authentication token is missing",
+        );
+      }
+    }
+
+    final headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    };
+
     final response = await http.get(url, headers: headers);
     log("Response for $endpoint (${response.statusCode}): ${response.body}");
     return _handleResponse(response);
