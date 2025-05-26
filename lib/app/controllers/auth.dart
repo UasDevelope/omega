@@ -7,7 +7,6 @@ import 'package:omega/app/utils/helpers/notification_service.dart';
 import '../data/source/local.dart';
 import '../routes/app_routes.dart';
 import '../services/auth_service.dart';
-import '../utils/helpers/toast.dart';
 
 class authController extends GetxController {
   final emailController = TextEditingController();
@@ -73,6 +72,7 @@ class authController extends GetxController {
           "deviceToken": deviceToken,
         };
         var response = await userService.login(loginData);
+        log("Response from the login is ${response}");
         if (response.success) {
           LocalStorage.saveString(
               LocalStorage.tokenKey, response.data["data"]["token"]);

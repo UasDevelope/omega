@@ -11,6 +11,7 @@ import '../../utils/constants/assets.dart';
 import '../../utils/helpers/app_size.dart';
 import '../../widgets/chart/monthly_bar_chart.dart';
 import '../../widgets/container/custom_supplement_container.dart';
+import '../../widgets/container/guide_widget.dart';
 import '../../widgets/text/text_widget.dart';
 
 class HomeView extends StatelessWidget {
@@ -34,6 +35,11 @@ class HomeView extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
             ),
             CustomSupplementContainer(),
+            Text(
+              "Guides",
+              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
+            ),
+            GuideWidget()
             // TextWidget(
             //   title: "Discover",
             //   fontSize: 20,
@@ -107,7 +113,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 250,
+            width: 240,
           ),
           // Calendar icon on right
           InkWell(
