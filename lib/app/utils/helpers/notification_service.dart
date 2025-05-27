@@ -78,7 +78,7 @@ class NotificationUtil {
     );
 
     await flutterLocalNotificationsPlugin.show(
-      DateTime.now().millisecondsSinceEpoch ~/ 1000, // random unique ID
+      DateTime.now().millisecondsSinceEpoch ~/ 1000,
       message.notification?.title ?? "Notification",
       message.notification?.body ?? "You have a new update",
       simpleNotificationDetails,

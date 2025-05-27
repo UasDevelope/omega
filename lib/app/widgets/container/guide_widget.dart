@@ -267,47 +267,45 @@ class GuideWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(14.0),
-      child: Expanded(
-        child: ListView.separated(
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-          itemCount: guides.length,
-          itemBuilder: (context, index) {
-            final guide = guides[index];
-            return CustomContainer(
-              onTap: () {
-                Get.to(() => GuideDetail(guide: guide));
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(2),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 180, // ✅ fixed height for all images
-                      child: Image.asset(
-                        guide.imageUrl,
-                        fit: BoxFit.cover,
-                      ),
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: ScrollPhysics(),
+        itemCount: guides.length,
+        itemBuilder: (context, index) {
+          final guide = guides[index];
+          return CustomContainer(
+            onTap: () {
+              Get.to(() => GuideDetail(guide: guide));
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(2),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 180, // ✅ fixed height for all images
+                    child: Image.asset(
+                      guide.imageUrl,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: 10),
-                  TextWidget(
-                    title: guide.title,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  Text(
-                    guide.description,
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
-                ],
-              ),
-            );
-          },
-          separatorBuilder: (context, index) => SizedBox(height: 16),
-        ),
+                ),
+                SizedBox(height: 10),
+                TextWidget(
+                  title: guide.title,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                Text(
+                  guide.description,
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+              ],
+            ),
+          );
+        },
+        separatorBuilder: (context, index) => SizedBox(height: 16),
       ),
     );
   }
