@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:omega/app/services/suplement.dart';
-import 'package:omega/app/utils/helpers/toast.dart';
 
 import '../data/models/daily_suppliment.dart';
 import '../data/models/supplement.dart';
@@ -20,6 +19,7 @@ class HomeController extends GetxController {
 
   RxList<SupplementModel> supplements = <SupplementModel>[].obs;
   RxList<SupplementModel> allSuplements = <SupplementModel>[].obs;
+  RxList<SupplementModel> todaySuppliments = <SupplementModel>[].obs;
   final Rx<DailyDataSuppliment?> dailySupplements =
       Rx<DailyDataSuppliment?>(null);
 

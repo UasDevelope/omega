@@ -8,6 +8,7 @@ import 'package:omega/app/widgets/image/custom_svg.dart';
 import '../../controllers/home_controller.dart';
 import '../../controllers/profile_ctrl.dart';
 import '../../utils/constants/assets.dart';
+import '../../utils/constants/color.dart';
 import '../../utils/helpers/app_size.dart';
 import '../../widgets/chart/monthly_bar_chart.dart';
 import '../../widgets/container/custom_supplement_container.dart';
@@ -39,7 +40,23 @@ class HomeView extends StatelessWidget {
               "Guides",
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16),
             ),
-            GuideWidget()
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.softWhite,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x26000000),
+                    blurRadius: 6.1,
+                    spreadRadius: 0,
+                    offset: Offset(0, 0),
+                  ),
+                ],
+              ),
+              child: GuideWidget(),
+            )
+
             // TextWidget(
             //   title: "Discover",
             //   fontSize: 20,

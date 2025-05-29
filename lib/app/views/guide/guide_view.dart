@@ -10,7 +10,10 @@ class GuideView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(title: "Guides"),
-      body: GuideWidget(),
+      body: Padding(
+        padding: const EdgeInsets.all(14.0),
+        child: GuideWidget(),
+      ),
     );
   }
 }

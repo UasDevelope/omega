@@ -34,6 +34,7 @@ class authController extends GetxController {
       };
       log("Data map is $data");
       var response = await userService.createUser(data);
+      log("Response is $response");
       if (response.success) {
         Get.toNamed(Routes.otp);
         // CustomToast.success("Successfully created user");

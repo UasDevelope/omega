@@ -58,7 +58,7 @@ class CustomSupplementContainer extends StatelessWidget {
             ],
           ),
           Obx(() {
-            if (homeController.allSuplements.isEmpty) {
+            if (homeController.supplements.isEmpty) {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 40),
@@ -75,11 +75,11 @@ class CustomSupplementContainer extends StatelessWidget {
               );
             } else {
               return ListView.separated(
-                itemCount: homeController.allSuplements.length,
+                itemCount: homeController.supplements.length,
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
                 itemBuilder: (context, index) {
-                  final supplement = homeController.allSuplements[index];
+                  final supplement = homeController.supplements[index];
                   log("AllSupplements$supplement");
                   return supplementContainer(
                     bgColor: AppColors.softWhite,
